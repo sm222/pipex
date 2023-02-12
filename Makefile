@@ -14,10 +14,10 @@ LDIR	=	lib_ft/
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	
+CFLAGS	=	-Wall -Werror -Wextra 
 RM	=	rm	-f
 
-#-Wall -Werror -Wextra
+#-Wall -Werror -Wextra -FD_CLOEXEC
 #-fsanitize=address
 # Sources are all .c files
 SRCS	=	main.c
@@ -28,14 +28,14 @@ OBJS	=	$(SRCS:.c=.o)
 USER = $(shell whoami)
 
 all: $(NAME)
-	@ echo $(shell reset)$(GRN)
-	@ echo "				pipex made by anboisve\n " $(RESET)
-	@ cat logo.txt
-	@ echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
+#	@ echo $(shell reset)$(GRN)
+	@echo "				pipex made by anboisve\n " $(RESET)
+	@cat logo.txt
+	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
 # Generates output file
 $(NAME): $(OBJS)
-	@ $(MAKE) -C $(LDIR)
-	@ $(CC) $(CFLAGS) $(SRCS) $(LDIR)$(LIBFT) -o $(NAME)
+	@$(MAKE) -C $(LDIR)
+	@$(CC) $(CFLAGS) $(SRCS) $(LDIR)$(LIBFT) -o $(NAME)
 # Removes objects
 clean:
 	$(RM) $(OBJS)
@@ -44,17 +44,17 @@ clean:
 
 # Removes objects and executables
 fclean: clean
-	$(RM) $(NAME)
-	$(RM) $(LDIR)$(LIBFT)
-	@ echo $(shell clear) $(GRN) clean all$(RESET)
+	@$(RM) $(NAME)
+	@$(RM) $(LDIR)$(LIBFT)
+	@echo $(shell clear) $(GRN) clean all$(RESET)
 
 run: all
-	@ ./pipex
+	@./pipex
 
 mc: all clean
-	@ ./pipex
+	@./pipex
 
 mem: all
-	valgrind -s ./so_long maps/map.ber
+	valgrind -s ./pipex
 # Removes objects and executables and remakes
 re: fclean all

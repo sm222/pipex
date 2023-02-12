@@ -21,46 +21,65 @@ execve, exit, fork, pipe,
 unlink, wait, waitpid
 */
 
-int	ft_error(const char *msg, int type)
+int	ft_error(const char *msg)
 {
-	if (type)
-		printf("error in : %s\n", msg);
-	else
-		printf("%s\n", msg);
+	perror(msg);
 	exit(1);
 }
 
-void	ft_child(char **av, char **en, int *fd)
+char	**ft_make_path(char **en)
 {
-	return;
+	size_t	i;
+	char	**new;
+
+	i = -1;
+	while (en[++i])
+		if (!ft_strncmp(en[i], "PATH=", 5))
+			break ;
+	new = ft_split(en[i] + 5, ':');
+	if (!new)
+		ft_error("could not find path");
+	return (new);
+}
+
+char	*ft_find_cmd(char *cmd, char **path)
+{
+	size_t	i;
+	char	*tmp;
+
+	i = 0;
+	if (!access(cmd, F_OK | X_OK))
+		return (cmd);
+	while (path[i])
+	{
+		tmp = ft_combine("%s/%s", path[i], cmd);
+		printf("%s\n", tmp);
+		if (!access(tmp, F_OK | X_OK))
+			break ;
+		i++;
+		free(tmp);
+	}
+	return (tmp);
 }
 
 int	main(int ac, char **av, char **en)
 {
-	char	**rez;
+	char	**path;
 	int		fd[2];
-	int	i = -1;
 	pid_t	pid;
 
 	if (ac == 5)
 	{
+		path = ft_make_path(en);
 		if (pipe(fd) < 0)
-			ft_error("pipe", 1);
+			ft_error(ERR_PIPE);
 		pid = fork();
 		if (pid == -1)
-			ft_error("could not fork", 0);
+			ft_error("could not fork");
 		else if (pid == 0)
-			printf(" ");
-		
+			ft_find_cmd(av[2], path);
 	}
-	while (en[++i])
-	{
-		if (ft_strncmp("PATH=", en[i], 5) == 0)
-			break ;
-	}
-	en = ft_split(en[i],':');
-	i = -1;
-	while (en[++i])
-		printf("%s\n", en[i]);
-	return(0);
+	else
+		ft_error("bad arg");
+	return (0);
 }

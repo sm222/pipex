@@ -15,8 +15,6 @@
 
 # include "lib_ft/libft.h"
 
-
-
-
+# define ERR_PIPE "can't open the fd in pipe"
 
 #endif // PIPEX_H
