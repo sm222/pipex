@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:07:18 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/06 12:37:04 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:07:14 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
-# include "index.h"
 # include <stdarg.h>
+# include "index.h"
 # include "ft_printf.h"
 
 # define HEX_TABLE "0123456789abcdef"
@@ -63,7 +63,7 @@ char	*ft_combine(char *s, ...);
 
 void	*ft_safe_free(void *p);
 void	ft_bzero(void *s, size_t n);
-void	**ft_ft_double_sfree(void	**ptr);
+void	**ft_double_sfree(void **ptr);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_realloc(void *old, size_t count, size_t size, size_t new_size);
 void	*ft_memset(void *b, int c, size_t len);

@@ -14,7 +14,7 @@ LDIR	=	lib_ft/
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra 
+CFLAGS	=	-Wall -Werror -Wextra -g
 RM	=	rm	-f
 
 #-Wall -Werror -Wextra -FD_CLOEXEC
@@ -27,14 +27,17 @@ OBJS	=	$(SRCS:.c=.o)
 
 USER = $(shell whoami)
 
-all: $(NAME)
-#	@ echo $(shell reset)$(GRN)
+all: libft $(NAME)
+	@echo $(shell reset)$(GRN)
 	@echo "				pipex made by anboisve\n " $(RESET)
 	@cat logo.txt
 	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
+
+libft:
+	@$(MAKE) -C $(LDIR)
+
 # Generates output file
 $(NAME): $(OBJS)
-	@$(MAKE) -C $(LDIR)
 	@$(CC) $(CFLAGS) $(SRCS) $(LDIR)$(LIBFT) -o $(NAME)
 # Removes objects
 clean:
@@ -58,3 +61,5 @@ mem: all
 	valgrind -s ./pipex
 # Removes objects and executables and remakes
 re: fclean all
+
+.PHONY: all libft

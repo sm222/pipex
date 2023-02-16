@@ -14,7 +14,23 @@
 # define PIPEX_H
 
 # include "lib_ft/libft.h"
+# include <fcntl.h>
+# include <sys/wait.h>
 
 # define ERR_PIPE "can't open the fd in pipe"
+
+typedef struct s_pipex
+{
+	int		input;
+	int		output;
+	char	**path;
+	char	**argv;
+	char	**en;
+	char	**cmd1;
+	char	**cmd2;
+	int		fd[2];
+	pid_t	pid[2];
+
+}	t_pipex;
 
 #endif // PIPEX_H
