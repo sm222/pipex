@@ -11,6 +11,7 @@ CLE 	=	\e[1;1H\e[2J
 NAME	=	pipex
 LIBFT	=	libft.a
 LDIR	=	lib_ft/
+INCLU	=	
 
 # Compiler and flags
 CC		=	gcc
@@ -20,7 +21,9 @@ RM	=	rm	-f
 #-Wall -Werror -Wextra -FD_CLOEXEC
 #-fsanitize=address
 # Sources are all .c files
-SRCS	=	main.c
+SRCS	=	utilse.c\
+			pipex.c\
+			ft_child.c
 
 
 OBJS	=	$(SRCS:.c=.o)
@@ -52,13 +55,13 @@ fclean: clean
 	@echo $(shell clear) $(GRN) clean all$(RESET)
 
 run: all
-	@./pipex
+	@./pipex logo.txt "cat" wc out
 
 mc: all clean
 	@./pipex
 
 mem: all
-	valgrind -s ./pipex
+	valgrind -s ./pipex logo.txt "cat" wc out
 # Removes objects and executables and remakes
 re: fclean all
 

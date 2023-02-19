@@ -22,7 +22,10 @@ unlink, wait, waitpid
 
 int	ft_error(const char *msg)
 {
-	perror(msg);
+	if (sys_nerr)
+		perror(msg);
+	else
+		ft_printf("%s", msg);
 	exit(1);
 }
 
@@ -35,6 +38,8 @@ char	**ft_make_path(char **en)
 	while (en[++i])
 		if (!ft_strncmp(en[i], "PATH=", 5))
 			break ;
+	if (en[i][0] == 0)
+		ft_error(sys_errlist[sys_nerr]);
 	new = ft_split(en[i] + 5, ':');
 	if (!new)
 		ft_error(sys_errlist[sys_nerr]);
@@ -49,6 +54,10 @@ char	*ft_find_cmd(char *cmd, char **path)
 	i = 0;
 	if (!access(cmd, F_OK | X_OK))
 		return (ft_strdup(cmd));
+	tmp = ft_combine("./%s", cmd);
+	if (!access(cmd, F_OK | X_OK))
+		return (tmp);
+	tmp = ft_safe_free(tmp);
 	while (path[i])
 	{
 		tmp = ft_combine("%s/%s", path[i], cmd);
@@ -85,67 +94,4 @@ void	ft_chek_cmd(t_pipex *data)
 	if (!c2)
 		ft_error("can't fine segond commend");
 	c2 = ft_safe_free(c2);
-	data->cmd1 = (char **)ft_double_sfree((void **)data->cmd1);
-	data->cmd2 = (char **)ft_double_sfree((void **)data->cmd2);
-}
-
-void	ft_child1(t_pipex *data)
-{
-	char	*p;
-	char	**ex;
-
-	dup2(data->input, STDIN_FILENO);
-	dup2(data->pipe[1], STDOUT_FILENO);
-	close(data->pipe[0]);
-	close(data->pipe[1]);
-	ex = ft_split(data->argv[2], ' ');
-	p = ft_find_cmd(ex[0], data->path);
-	if (execve(p, ex, data->en) == -1)
-		ft_error("ft_child2");
-}
-
-void	ft_child2(t_pipex *data)
-{
-	char	*p;
-	char	**ex;
-
-	dup2(data->output, STDOUT_FILENO);
-	dup2(data->pipe[0], STDIN_FILENO);
-	close(data->pipe[0]);
-	close(data->pipe[1]);
-	ex = ft_split(data->argv[3], ' ');
-	p = ft_find_cmd(ex[0], data->path);
-	if (execve(p, ex, data->en) == -1)
-		ft_error("ft_child2");
-}
-
-int	main(int ac, char **av, char **en)
-{
-	t_pipex	data;
-
-	data.argv = av;
-	data.en = en;
-	if (ac == 5)
-	{
-		data.path = ft_make_path(en);
-		if (!data.path)
-			ft_error("can't find path");
-		ft_chek_cmd(&data);
-		ft_chek_file(&data);
-		if (pipe(&data.pipe[0]) != 0)
-			ft_error("can't make the pipe");
-		data.pid[0] = fork();
-		if (data.pid[0] == 0)
-			ft_child1(&data);
-		close(data.pipe[1]);
-		data.pid[1] = fork();
-		if (data.pid[1] == 0)
-			ft_child2(&data);
-		close(data.pipe[0]);
-		waitpid(data.pid[0], NULL, 0);
-		waitpid(data.pid[1], NULL, 0);
-	}
-	else
-		ft_error("need 4 argv");
-	return (0);
 }

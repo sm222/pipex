@@ -33,4 +33,12 @@ typedef struct s_pipex
 
 }	t_pipex;
 
+int		ft_error(const char *msg);
+void	ft_child1(t_pipex *data);
+void	ft_child2(t_pipex *data);
+char	**ft_make_path(char **en);
+char	*ft_find_cmd(char *cmd, char **path);
+void	ft_chek_file(t_pipex *data);
+void	ft_chek_cmd(t_pipex *data);
+
 #endif // PIPEX_H
