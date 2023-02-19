@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:07:18 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/15 15:07:14 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:34:44 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,18 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000
 # endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 10240
+# endif
+
+/*
+# if __MACH__
+#  define PTR_SIZE unsigned long
+# else if
+#  define PTR_SIZE unsigned long long
+# endif
+*/
 
 typedef struct s_info
 {

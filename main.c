@@ -80,7 +80,6 @@ void	ft_chek_cmd(t_pipex *data)
 	if (!c1)
 		ft_error("can't fine first commend");
 	c1 = ft_safe_free(c1);
-	//execve(ft_find_cmd(data->cmd1[0], data->path), data->cmd1, data->path);
 	data->cmd2 = ft_split(data->argv[3], ' ');
 	c2 = ft_find_cmd(data->cmd2[0], data->path);
 	if (!c2)
@@ -96,12 +95,13 @@ void	ft_child1(t_pipex *data)
 	char	**ex;
 
 	dup2(data->input, STDIN_FILENO);
-	dup2(data->output, STDOUT_FILENO);
-	close(data->fd[0]);
-	close(data->fd[1]);
+	dup2(data->pipe[1], STDOUT_FILENO);
+	close(data->pipe[0]);
+	close(data->pipe[1]);
 	ex = ft_split(data->argv[2], ' ');
-	p = ft_find_cmd(data->argv[1], data->path);
-	execve(p, ex, data->en);
+	p = ft_find_cmd(ex[0], data->path);
+	if (execve(p, ex, data->en) == -1)
+		ft_error("ft_child2");
 }
 
 void	ft_child2(t_pipex *data)
@@ -110,12 +110,13 @@ void	ft_child2(t_pipex *data)
 	char	**ex;
 
 	dup2(data->output, STDOUT_FILENO);
-	dup2(data->pid[0], STDIN_FILENO);
-	close(data->fd[0]);
-	close(data->fd[1]);
-	ex = ft_split(data->argv[2], ' ');
-	p = ft_find_cmd(data->argv[1], data->path);
-	execve(p, ex, data->en);
+	dup2(data->pipe[0], STDIN_FILENO);
+	close(data->pipe[0]);
+	close(data->pipe[1]);
+	ex = ft_split(data->argv[3], ' ');
+	p = ft_find_cmd(ex[0], data->path);
+	if (execve(p, ex, data->en) == -1)
+		ft_error("ft_child2");
 }
 
 int	main(int ac, char **av, char **en)
@@ -131,14 +132,16 @@ int	main(int ac, char **av, char **en)
 			ft_error("can't find path");
 		ft_chek_cmd(&data);
 		ft_chek_file(&data);
-		if (pipe(&data.fd[0]) != 0)
+		if (pipe(&data.pipe[0]) != 0)
 			ft_error("can't make the pipe");
 		data.pid[0] = fork();
 		if (data.pid[0] == 0)
 			ft_child1(&data);
+		close(data.pipe[1]);
 		data.pid[1] = fork();
 		if (data.pid[1] == 0)
 			ft_child2(&data);
+		close(data.pipe[0]);
 		waitpid(data.pid[0], NULL, 0);
 		waitpid(data.pid[1], NULL, 0);
 	}

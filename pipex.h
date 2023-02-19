@@ -28,7 +28,7 @@ typedef struct s_pipex
 	char	**en;
 	char	**cmd1;
 	char	**cmd2;
-	int		fd[2];
+	int		pipe[2];
 	pid_t	pid[2];
 
 }	t_pipex;
