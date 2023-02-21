@@ -6,13 +6,13 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/19 17:51:18 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:37:21 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static	void	ft_free_data(t_pipex *data)
+void	ft_free_data(t_pipex *data)
 {
 	ft_double_sfree((void **)data->path);
 	ft_double_sfree((void **)data->cmd1);
@@ -21,11 +21,14 @@ static	void	ft_free_data(t_pipex *data)
 
 static void	ft_start_data(t_pipex *data, char **av, char **en)
 {
+	data->cmd1 = NULL;
+	data->cmd2 = NULL;
+	data->path = NULL;
 	data->argv = av;
 	data->en = en;
-	data->path = ft_make_path(en);
-	ft_chek_file(data);
-	ft_chek_cmd(data);
+	data->path = ft_make_path(data);
+	ft_check_file(data);
+	ft_make_cmd(data);
 }
 
 int	main(int ac, char **av, char **en)
@@ -35,8 +38,8 @@ int	main(int ac, char **av, char **en)
 	if (ac == 5)
 	{
 		ft_start_data(&data, av, en);
-		if (pipe(&data.pipe[0]) != 0)
-			ft_error("can't make the pipe");
+		if (pipe(data.pipe) != 0)
+			ft_error("can't make the pipe", &data);
 		data.pid[0] = fork();
 		if (data.pid[0] == 0)
 			ft_child1(&data);
@@ -50,6 +53,6 @@ int	main(int ac, char **av, char **en)
 		ft_free_data(&data);
 	}
 	else
-		ft_error("need 4 argv");
+		ft_error("need 4  argv", &data);
 	return (0);
 }

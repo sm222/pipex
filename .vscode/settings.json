@@ -11,6 +11,9 @@
 		"functional": "c",
 		"iterator": "c",
 		"string_view": "c",
-		"tuple": "c"
+		"tuple": "c",
+		"libft.h": "c",
+		"complex": "c",
+		"sstream": "c"
 	}
 }

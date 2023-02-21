@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/19 16:49:58 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:09:25 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ void	ft_child1(t_pipex *data)
 	dup2(data->pipe[1], STDOUT_FILENO);
 	close(data->pipe[0]);
 	close(data->pipe[1]);
-	p = ft_find_cmd(data->cmd1[0], data->path);
+	p = ft_find_cmd(data->cmd1[0], data);
 	if (execve(p, data->cmd1, data->en) == -1)
-		ft_error("ft_child2");
-	ft_safe_free(p);
+	{
+		ft_free_data(data);
+		ft_safe_free(p);
+		exit(sys_nerr);
+	}
+	exit(0);
 }
 
 void	ft_child2(t_pipex *data)
@@ -34,8 +38,12 @@ void	ft_child2(t_pipex *data)
 	dup2(data->pipe[0], STDIN_FILENO);
 	close(data->pipe[0]);
 	close(data->pipe[1]);
-	p = ft_find_cmd(data->cmd2[0], data->path);
+	p = ft_find_cmd(data->cmd2[0], data);
 	if (execve(p, data->cmd2, data->en) == -1)
-		ft_error("ft_child2");
-	ft_safe_free(p);
+	{
+		ft_free_data(data);
+		ft_safe_free(p);
+		exit(sys_nerr);
+	}
+	exit(0);
 }

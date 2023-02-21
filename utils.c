@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 12:53:36 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/08 12:53:36 by anboisve         ###   ########.fr       */
+/*   Created: 2023/02/20 16:37:50 by anboisve          #+#    #+#             */
+/*   Updated: 2023/02/20 16:37:50 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,48 +20,47 @@ execve, exit, fork, pipe,
 unlink, wait, waitpid
 */
 
-int	ft_error(const char *msg)
+int	ft_error(const char *msg, t_pipex *data)
 {
 	if (sys_nerr)
 		perror(msg);
-	else
-		ft_printf("%s", msg);
+	ft_free_data(data);
 	exit(1);
 }
 
-char	**ft_make_path(char **en)
+char	**ft_make_path(t_pipex *data)
 {
 	size_t	i;
 	char	**new;
 
 	i = -1;
-	while (en[++i])
-		if (!ft_strncmp(en[i], "PATH=", 5))
+	while (data->en[++i])
+		if (!ft_strncmp(data->en[i], "PATH=", 5))
 			break ;
-	if (en[i][0] == 0)
-		ft_error(sys_errlist[sys_nerr]);
-	new = ft_split(en[i] + 5, ':');
+	if (data->en[i][0] == 0)
+		ft_error(sys_errlist[sys_nerr], data);
+	new = ft_split(data->en[i] + 5, ':');
 	if (!new)
-		ft_error(sys_errlist[sys_nerr]);
+		ft_error(sys_errlist[sys_nerr], data);
 	return (new);
 }
 
-char	*ft_find_cmd(char *cmd, char **path)
+char	*ft_find_cmd(char *cmd, t_pipex *data)
 {
 	size_t	i;
 	char	*tmp;
 
 	i = 0;
-	if (!access(cmd, F_OK | X_OK))
+	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
 	tmp = ft_combine("./%s", cmd);
-	if (!access(cmd, F_OK | X_OK))
+	if (access(cmd, F_OK | X_OK) == 0)
 		return (tmp);
 	tmp = ft_safe_free(tmp);
-	while (path[i])
+	while (data->path[i])
 	{
-		tmp = ft_combine("%s/%s", path[i], cmd);
-		if (!access(tmp, F_OK | X_OK))
+		tmp = ft_combine("%s/%s", data->path[i], cmd);
+		if (access(tmp, F_OK | X_OK) == 0)
 			return (tmp);
 		tmp = ft_safe_free(tmp);
 		i++;
@@ -69,29 +68,18 @@ char	*ft_find_cmd(char *cmd, char **path)
 	return (NULL);
 }
 
-void	ft_chek_file(t_pipex *data)
+void	ft_check_file(t_pipex *data)
 {
 	data->input = open(data->argv[1], O_RDONLY);
 	if (data->input < 0)
-		ft_error("ft_chek_file , file 1");
+		ft_error(sys_errlist[sys_nerr], data);
 	data->output = open(data->argv[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (data->output < 0)
-		ft_error("ft_chek_file , file 2");
+		ft_error(sys_errlist[sys_nerr], data);
 }
 
-void	ft_chek_cmd(t_pipex *data)
+void	ft_make_cmd(t_pipex *data)
 {
-	char	*c1;
-	char	*c2;
-
 	data->cmd1 = ft_split(data->argv[2], ' ');
-	c1 = ft_find_cmd(data->cmd1[0], data->path);
-	if (!c1)
-		ft_error("can't fine first commend");
-	c1 = ft_safe_free(c1);
 	data->cmd2 = ft_split(data->argv[3], ' ');
-	c2 = ft_find_cmd(data->cmd2[0], data->path);
-	if (!c2)
-		ft_error("can't fine segond commend");
-	c2 = ft_safe_free(c2);
 }

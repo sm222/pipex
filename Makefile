@@ -20,8 +20,9 @@ RM	=	rm	-f
 
 #-Wall -Werror -Wextra -FD_CLOEXEC
 #-fsanitize=address
+#--recurse-submodules
 # Sources are all .c files
-SRCS	=	utilse.c\
+SRCS	=	utils.c\
 			pipex.c\
 			ft_child.c
 
@@ -31,10 +32,10 @@ OBJS	=	$(SRCS:.c=.o)
 USER = $(shell whoami)
 
 all: libft $(NAME)
-	@echo $(shell reset)$(GRN)
-	@echo "				pipex made by anboisve\n " $(RESET)
-	@cat logo.txt
-	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
+#	@echo $(shell reset)$(GRN)
+#	@echo "				pipex made by anboisve\n " $(RESET)
+#	@cat logo.txt
+#	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
 
 libft:
 	@$(MAKE) -C $(LDIR)
@@ -46,7 +47,7 @@ $(NAME): $(OBJS)
 clean:
 	$(RM) $(OBJS)
 	$(RM) $(LDIR)*.o
-	@ echo $(shell clear) $(GRN) clean *.o$(RESET)
+	@echo $(shell clear) $(GRN) clean *.o$(RESET)
 
 # Removes objects and executables
 fclean: clean
@@ -62,6 +63,9 @@ mc: all clean
 
 mem: all
 	valgrind -s ./pipex logo.txt "cat" wc out
+
+mem2: all
+	leaks -atExit -- ./pipex logo.txt "cat" wc out
 # Removes objects and executables and remakes
 re: fclean all
 
