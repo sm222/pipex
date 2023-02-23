@@ -25,7 +25,7 @@ int	ft_error(const char *msg, t_pipex *data)
 	if (sys_nerr)
 		perror(msg);
 	ft_free_data(data);
-	exit(1);
+	exit(sys_nerr);
 }
 
 char	**ft_make_path(t_pipex *data)
@@ -76,10 +76,4 @@ void	ft_check_file(t_pipex *data)
 	data->output = open(data->argv[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (data->output < 0)
 		ft_error(sys_errlist[sys_nerr], data);
-}
-
-void	ft_make_cmd(t_pipex *data)
-{
-	data->cmd1 = ft_split(data->argv[2], ' ');
-	data->cmd2 = ft_split(data->argv[3], ' ');
 }

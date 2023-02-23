@@ -40,6 +40,5 @@ void	ft_child2(t_pipex *data);
 char	**ft_make_path(t_pipex *data);
 char	*ft_find_cmd(char *cmd, t_pipex *data);
 void	ft_check_file(t_pipex *data);
-void	ft_make_cmd(t_pipex *data);
 
 #endif // PIPEX_H

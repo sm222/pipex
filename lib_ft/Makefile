@@ -2,7 +2,7 @@ NAME	=	libft.a
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g
+CFLAGS	=	-Wall -Werror -Wextra
 RM		=	rm -f
 
 # Sources are all .c files

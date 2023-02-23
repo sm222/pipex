@@ -11,11 +11,10 @@ CLE 	=	\e[1;1H\e[2J
 NAME	=	pipex
 LIBFT	=	libft.a
 LDIR	=	lib_ft/
-INCLU	=	
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g
+CFLAGS	=	-Wall -Werror -Wextra
 RM	=	rm	-f
 
 #-Wall -Werror -Wextra -FD_CLOEXEC
@@ -42,7 +41,7 @@ libft:
 
 # Generates output file
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(SRCS) $(LDIR)$(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LDIR)$(LIBFT) -o $(NAME)
 # Removes objects
 clean:
 	$(RM) $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/21 17:37:21 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:15:20 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,19 @@ void	ft_free_data(t_pipex *data)
 
 static void	ft_start_data(t_pipex *data, char **av, char **en)
 {
-	data->cmd1 = NULL;
-	data->cmd2 = NULL;
-	data->path = NULL;
 	data->argv = av;
 	data->en = en;
 	data->path = ft_make_path(data);
 	ft_check_file(data);
-	ft_make_cmd(data);
 }
 
 int	main(int ac, char **av, char **en)
 {
 	t_pipex	data;
 
+	data.cmd1 = NULL;
+	data.cmd2 = NULL;
+	data.path = NULL;
 	if (ac == 5)
 	{
 		ft_start_data(&data, av, en);

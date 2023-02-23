@@ -6,12 +6,13 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:20:33 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/21 16:08:14 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:16:24 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
 int	words_conts(char *s, char *list, char c)
 {
 	size_t	i;
@@ -44,6 +45,7 @@ int	words_conts(char *s, char *list, char c)
 	}
 	return (size);
 }
+*/
 
 /*
 int	words_conts(char *s, char *list, char c)
@@ -71,6 +73,8 @@ int	words_conts(char *s, char *list, char c)
 
 char	**ft_str_split(char *s, char *list, char c)
 {
-	printf("%d\n", words_conts(s, list, c));
+	(void)s;
+	(void)list;
+	(void)c;
 	return (NULL);
 }
