@@ -18,19 +18,19 @@
 # include <sys/wait.h>
 
 # define ERR_PIPE "can't open the fd in pipe"
+# define ERR_ICI "ici"
 
 typedef struct s_pipex
 {
 	int		input;
 	int		output;
+	int		pro_fd[2];
 	char	**path;
 	char	**argv;
+	int		argc;
 	char	**en;
-	char	**cmd1;
-	char	**cmd2;
 	int		pipe[2];
 	pid_t	pid[2];
-
 }	t_pipex;
 
 void	ft_free_data(t_pipex *data);
@@ -40,5 +40,7 @@ void	ft_child2(t_pipex *data);
 char	**ft_make_path(t_pipex *data);
 char	*ft_find_cmd(char *cmd, t_pipex *data);
 void	ft_check_file(t_pipex *data);
+void	ft_mid_child(t_pipex *data, int mode, int i);
+void	run_cmd(t_pipex *data, int i);
 
-#endif // PIPEX_H
+#endif

@@ -6,23 +6,17 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/26 09:10:40 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:58:54 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_free_data(t_pipex *data)
-{
-	ft_double_sfree((void **)data->path);
-	ft_double_sfree((void **)data->cmd1);
-	ft_double_sfree((void **)data->cmd2);
-}
-
-static void	ft_start_data(t_pipex *data, char **av, char **en)
+void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 {
 	data->argv = av;
 	data->en = en;
+	data->argc = ac;
 	data->path = ft_make_path(data);
 	ft_check_file(data);
 }
@@ -30,26 +24,19 @@ static void	ft_start_data(t_pipex *data, char **av, char **en)
 int	main(int ac, char **av, char **en)
 {
 	t_pipex	data;
+	int		i;
 
-	data.cmd1 = NULL;
-	data.cmd2 = NULL;
+	i = 2;
 	data.path = NULL;
-	if (ac == 5)
+	if (ac >= 4)
 	{
-		ft_start_data(&data, av, en);
-		if (pipe(data.pipe) != 0)
-			ft_error("can't make the pipe", &data);
-		data.pid[0] = fork();
-		if (data.pid[0] == 0)
-			ft_child1(&data);
-		close(data.pipe[1]);
-		data.pid[1] = fork();
-		if (data.pid[1] == 0)
-			ft_child2(&data);
-		close(data.pipe[0]);
-		waitpid(data.pid[0], NULL, 0);
-		waitpid(data.pid[1], NULL, 0);
-		ft_free_data(&data);
+		ft_start_data(&data, ac, av, en);
+		dup2(data.input, STDIN_FILENO);
+		dup2(data.output, STDOUT_FILENO);
+		ft_mid_child(&data, data.input, i++);
+		while (i < ac - 2)
+			ft_mid_child(&data, 1, i++);
+		run_cmd(&data, i);
 	}
 	else
 		ft_error("need 4 argv", &data);
