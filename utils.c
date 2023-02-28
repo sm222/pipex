@@ -50,7 +50,7 @@ char	**ft_make_path(t_pipex *data)
 	return (new);
 }
 
-char	*ft_find_cmd(char *cmd, t_pipex *data)
+char	*ft_find_cmd(char *cmd, char **path)
 {
 	size_t	i;
 	char	*tmp;
@@ -62,9 +62,9 @@ char	*ft_find_cmd(char *cmd, t_pipex *data)
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (tmp);
 	tmp = ft_safe_free(tmp);
-	while (data->path[i])
+	while (path[i])
 	{
-		tmp = ft_combine("%s/%s", data->path[i], cmd);
+		tmp = ft_combine("%s/%s", path[i], cmd);
 		if (access(tmp, F_OK | X_OK) == 0)
 			return (tmp);
 		tmp = ft_safe_free(tmp);

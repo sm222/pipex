@@ -25,26 +25,43 @@ SRCS	=	utils.c\
 			pipex.c\
 			ft_child.c
 
-
 OBJS	=	$(SRCS:.c=.o)
+
+BSRCS	=	utils.c\
+			bonus_pipex.c\
+			ft_child.c
+
+
+BOBJS	=	$(BSRCS:.c=.o)
+
+ifdef WITH_BONUS
+OBJS_LIST = $(BOBJS)
+else
+OBJS_LIST = $(OBJS)
+endif
+
 
 USER = $(shell whoami)
 
-all: libft $(NAME)
+all: libft $(NAME) 
 #	@echo $(shell reset)$(GRN)
 #	@echo "				pipex made by anboisve\n " $(RESET)
 #	@cat logo.txt
 #	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
+$(NAME): $(OBJS_LIST)
+	@$(CC) $(CFLAGS) $(OBJS_LIST) $(LDIR)$(LIBFT) -o $(NAME)
+
+bonus:
+	make WITH_BONUS=1
 
 libft:
 	@$(MAKE) -C $(LDIR)
 
 # Generates output file
-$(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LDIR)$(LIBFT) -o $(NAME)
 # Removes objects
 clean:
 	$(RM) $(OBJS)
+	$(RM) $(BOBJS)
 	$(RM) $(LDIR)*.o
 	@echo $(shell clear) $(GRN) clean *.o$(RESET)
 
@@ -68,4 +85,4 @@ mem2: all
 # Removes objects and executables and remakes
 re: fclean all
 
-.PHONY: all libft
+.PHONY: all bonus libft
