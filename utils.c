@@ -23,12 +23,13 @@ unlink, wait, waitpid
 void	ft_free_data(t_pipex *data)
 {
 	ft_double_sfree((void **)data->path);
+	close(data->input);
+	close(data->output);
 }
 
 int	ft_error(const char *msg, t_pipex *data)
 {
-	if (sys_nerr)
-		perror(msg);
+	perror(msg);
 	ft_free_data(data);
 	exit(sys_nerr);
 }

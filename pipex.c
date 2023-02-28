@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/28 15:51:32 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:12:21 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	main(int ac, char **av, char **en)
 		ft_start_data(&data, ac, av, en);
 		dup2(data.input, STDIN_FILENO);
 		dup2(data.output, STDOUT_FILENO);
-		child(&data, av[2], data.input);
+		close(data.input);
+		close(data.output);
+		child(&data, av[2]);
 		run_cmd(av[3], data.path);
 		ft_double_sfree((void **)data.path);
 	}

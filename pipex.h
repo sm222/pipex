@@ -38,6 +38,6 @@ int		ft_error(const char *msg, t_pipex *data);
 void	ft_free_data(t_pipex *data);
 
 void	run_cmd(char *cmd, char **path);
-void	child(t_pipex *data, char *cmd, int fdin);
+void	child(t_pipex *data, char *cmd);
 
 #endif

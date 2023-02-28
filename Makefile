@@ -44,15 +44,15 @@ endif
 USER = $(shell whoami)
 
 all: libft $(NAME) 
-#	@echo $(shell reset)$(GRN)
-#	@echo "				pipex made by anboisve\n " $(RESET)
-#	@cat logo.txt
-#	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
+	@echo $(shell reset)$(GRN)
+	@echo "				pipex made by anboisve\n " $(RESET)
+	@cat logo.txt
+	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
 $(NAME): $(OBJS_LIST)
 	@$(CC) $(CFLAGS) $(OBJS_LIST) $(LDIR)$(LIBFT) -o $(NAME)
 
 bonus:
-	make WITH_BONUS=1
+	make WITH_BONUS=1 all
 
 libft:
 	@$(MAKE) -C $(LDIR)
