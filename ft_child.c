@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/28 17:59:06 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:05:18 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ void	run_cmd(char *cmd, char **path)
 	char	**argv;
 	char	*run;
 
+	run = NULL;
+	argv = NULL;
 	argv = ft_split(cmd, ' ');
-	if (!argv)
-		return ;
 	run = ft_find_cmd(argv[0], path);
-	execve(run, argv, path);
+	if (run)
+		execve(run, argv, path);
 	ft_safe_free(run);
 	ft_double_sfree((void **)argv);
 	perror(sys_errlist[sys_nerr]);
@@ -48,7 +49,7 @@ void	child(t_pipex *data, char *cmd)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[1]);
 		close(fd[0]);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, NULL, WNOHANG);
 	}
 	else
 	{
@@ -56,5 +57,6 @@ void	child(t_pipex *data, char *cmd)
 		close(fd[0]);
 		close(fd[1]);
 		run_cmd(cmd, data->path);
+		ft_free_data(data);
 	}
 }

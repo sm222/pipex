@@ -23,8 +23,8 @@ unlink, wait, waitpid
 void	ft_free_data(t_pipex *data)
 {
 	ft_double_sfree((void **)data->path);
-	close(data->input);
-	close(data->output);
+	data->argv = NULL;
+	data->en = NULL;
 }
 
 int	ft_error(const char *msg, t_pipex *data)
@@ -39,12 +39,15 @@ char	**ft_make_path(t_pipex *data)
 	size_t	i;
 	char	**new;
 
-	i = -1;
-	while (data->en[++i])
-		if (!ft_strncmp(data->en[i], "PATH=", 5))
+	i = 0;
+	while (data->en[i])
+	{
+		if (ft_strncmp(data->en[i], "PATH=", 5) == 0)
 			break ;
-	if (data->en[i][0] == 0)
-		ft_error(sys_errlist[sys_nerr], data);
+		if (data->en == NULL)
+			ft_error("can't find path", data);
+		i++;
+	}
 	new = ft_split(data->en[i] + 5, ':');
 	if (!new)
 		ft_error(sys_errlist[sys_nerr], data);

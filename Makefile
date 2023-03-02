@@ -71,16 +71,16 @@ fclean: clean
 	@$(RM) $(LDIR)$(LIBFT)
 	@echo $(shell clear) $(GRN) clean all$(RESET)
 
-run: all
+run:
 	@./pipex logo.txt "cat" wc out
 
 mc: all clean
 	@./pipex
 
-mem: all
+mem:
 	valgrind -s ./pipex logo.txt "cat" wc out
 
-mem2: all
+mem2:
 	leaks -atExit -- ./pipex logo.txt "cat" wc out
 # Removes objects and executables and remakes
 re: fclean all

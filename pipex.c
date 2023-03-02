@@ -6,11 +6,13 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/28 17:12:21 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:37:06 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+//285 bytes in 12 blocks
 
 void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 {
@@ -23,7 +25,7 @@ void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 
 int	main(int ac, char **av, char **en)
 {
-	t_pipex	data;
+	t_pipex		data;
 
 	data.path = NULL;
 	if (ac == 5)
@@ -35,9 +37,9 @@ int	main(int ac, char **av, char **en)
 		close(data.output);
 		child(&data, av[2]);
 		run_cmd(av[3], data.path);
-		ft_double_sfree((void **)data.path);
+		ft_free_data(&data);
 	}
 	else
 		ft_error("only take 2 file and 2 cmd", &data);
-	return (0);
+	return (EXIT_SUCCESS);
 }
