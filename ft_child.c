@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/02 16:05:18 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:57:01 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	run_cmd(char *cmd, char **path)
 	ft_safe_free(run);
 	ft_double_sfree((void **)argv);
 	perror(sys_errlist[sys_nerr]);
-	exit(sys_nerr);
+	exit(errno);
 }
 
 void	child(t_pipex *data, char *cmd)

@@ -31,7 +31,7 @@ int	ft_error(const char *msg, t_pipex *data)
 {
 	perror(msg);
 	ft_free_data(data);
-	exit(sys_nerr);
+	exit(errno);
 }
 
 char	**ft_make_path(t_pipex *data)
@@ -50,7 +50,7 @@ char	**ft_make_path(t_pipex *data)
 	}
 	new = ft_split(data->en[i] + 5, ':');
 	if (!new)
-		ft_error(sys_errlist[sys_nerr], data);
+		ft_error(sys_errlist[errno], data);
 	return (new);
 }
 
@@ -81,9 +81,9 @@ void	ft_check_file(t_pipex *data)
 {
 	data->input = open(data->argv[1], O_RDONLY);
 	if (data->input < 0)
-		ft_error(sys_errlist[sys_nerr], data);
+		ft_error(data->argv[1], data);
 	data->output = open(data->argv[data->argc - 1] \
 	, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (data->output < 0)
-		ft_error(sys_errlist[sys_nerr], data);
+		ft_error(data->argv[data->argc - 1], data);
 }

@@ -15,6 +15,7 @@
 
 # include "lib_ft/libft.h"
 # include <fcntl.h>
+# include <errno.h>
 # include <sys/wait.h>
 
 # define ERR_PIPE "can't open the fd in pipe"
