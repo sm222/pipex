@@ -14,7 +14,7 @@
 
 /*
 open, close, read, write,
-malloc, free, perror,
+malloc, free, perror,,
 strerror, access, dup, dup2,
 execve, exit, fork, pipe,
 unlink, wait, waitpid
@@ -22,6 +22,8 @@ unlink, wait, waitpid
 
 void	ft_free_data(t_pipex *data)
 {
+	if (!data)
+		return ;
 	ft_double_sfree((void **)data->path);
 	data->argv = NULL;
 	data->en = NULL;
@@ -39,16 +41,16 @@ char	**ft_make_path(t_pipex *data)
 	size_t	i;
 	char	**new;
 
+	new = NULL;
 	i = 0;
 	while (data->en[i])
 	{
 		if (ft_strncmp(data->en[i], "PATH=", 5) == 0)
 			break ;
-		if (data->en == NULL)
-			ft_error("can't find path", data);
 		i++;
 	}
-	new = ft_split(data->en[i] + 5, ':');
+	if (data->en[i] != NULL)
+		new = ft_split(data->en[i] + 5, ':');
 	if (!new)
 		ft_error(sys_errlist[errno], data);
 	return (new);

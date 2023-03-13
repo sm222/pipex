@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/02 15:37:06 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:49:55 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 {
 	data->argv = av;
+	if (!en)
+		ft_error("can't find enviroment", NULL);
 	data->en = en;
 	data->argc = ac;
 	data->path = ft_make_path(data);
@@ -40,6 +42,6 @@ int	main(int ac, char **av, char **en)
 		ft_free_data(&data);
 	}
 	else
-		ft_error("only take 2 file and 2 cmd", &data);
+		ft_error("infile ,cmd1 cmd2 outfile ", &data);
 	return (EXIT_SUCCESS);
 }
