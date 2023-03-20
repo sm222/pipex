@@ -64,13 +64,16 @@ char	*ft_find_cmd(char *cmd, char **path)
 	i = 0;
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
-	tmp = ft_combine("./%s", cmd);
+	//tmp = ft_combine("./%s", cmd);
+	tmp = ft_strjoin("./", cmd);
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (tmp);
 	tmp = ft_safe_free(tmp);
 	while (path[i])
 	{
-		tmp = ft_combine("%s/%s", path[i], cmd);
+		//tmp = ft_combine("%s/%s", path[i], cmd);
+		tmp = ft_strjoin(path[i], "/");
+		tmp = ft_strfjoin(tmp, cmd);
 		if (access(tmp, F_OK | X_OK) == 0)
 			return (tmp);
 		tmp = ft_safe_free(tmp);
