@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/20 16:27:21 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:12:07 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	run_cmd(char *cmd, char **path)
 	run = ft_find_cmd(argv[0], path);
 	if (run)
 		execve(run, argv, path);
+	perror(argv[0]);
 	ft_safe_free(run);
 	ft_double_sfree((void **)argv);
-	perror(sys_errlist[sys_nerr]);
-	exit(errno);
+	exit(1);
 }
 
 void	child(t_pipex *data, char *cmd)

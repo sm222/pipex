@@ -32,8 +32,10 @@ void	ft_free_data(t_pipex *data)
 int	ft_error(const char *msg, t_pipex *data)
 {
 	perror(msg);
+	close(data->input);
+	close(data->output);
 	ft_free_data(data);
-	exit(errno);
+	exit(1);
 }
 
 char	**ft_make_path(t_pipex *data)
@@ -52,7 +54,7 @@ char	**ft_make_path(t_pipex *data)
 	if (data->en[i] != NULL)
 		new = ft_split(data->en[i] + 5, ':');
 	if (!new)
-		ft_error(sys_errlist[errno], data);
+		ft_error("can't find path", data);
 	return (new);
 }
 
@@ -65,15 +67,12 @@ char	*ft_find_cmd(char *cmd, char **path)
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
 	tmp = ft_combine("./%s", cmd);
-	//tmp = ft_strjoin("./", cmd);
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (tmp);
 	tmp = ft_safe_free(tmp);
 	while (path[i])
 	{
 		tmp = ft_combine("%s/%s", path[i], cmd);
-		//tmp = ft_strjoin(path[i], "/");
-		//tmp = ft_strfjoin(tmp, cmd);
 		if (access(tmp, F_OK | X_OK) == 0)
 			return (tmp);
 		tmp = ft_safe_free(tmp);
@@ -84,11 +83,11 @@ char	*ft_find_cmd(char *cmd, char **path)
 
 void	ft_check_file(t_pipex *data)
 {
-	data->input = open(data->argv[1], O_RDONLY);
-	if (data->input < 0)
-		ft_error(data->argv[1], data);
 	data->output = open(data->argv[data->argc - 1] \
 	, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (data->output < 0)
 		ft_error(data->argv[data->argc - 1], data);
+	data->input = open(data->argv[1], O_RDONLY);
+	if (data->input < 0)
+		ft_error(data->argv[1], data);
 }

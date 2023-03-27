@@ -62,13 +62,14 @@ libft:
 clean:
 	$(RM) $(OBJS)
 	$(RM) $(BOBJS)
-	$(RM) $(LDIR)*.o
+	@$(MAKE) -C $(LDIR) clean
 	@echo $(shell clear) $(GRN) clean *.o$(RESET)
 
 # Removes objects and executables
 fclean: clean
 	@$(RM) $(NAME)
-	@$(RM) $(LDIR)$(LIBFT)
+	@$(MAKE) -C $(LDIR) fclean
+
 	@echo $(shell clear) $(GRN) clean all$(RESET)
 
 run:

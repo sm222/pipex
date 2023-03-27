@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/13 09:49:55 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:09:25 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int ac, char **av, char **en)
 {
 	t_pipex		data;
 
+	ft_bzero(&data, sizeof(t_pipex));
 	data.path = NULL;
 	if (ac == 5)
 	{
