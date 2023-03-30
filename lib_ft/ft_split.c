@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 09:09:23 by anboisve          #+#    #+#             */
-/*   Updated: 2023/01/09 13:02:11 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:24:49 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ static char	*ft_strdup_c(const char *str, char c)
 	return (new);
 }
 
+/*
+take str and char to split on, return a double array
+*/
 char	**ft_split(char const *s, char c)
 {
 	char	**new;

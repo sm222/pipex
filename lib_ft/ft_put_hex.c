@@ -6,12 +6,16 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:51:22 by anboisve          #+#    #+#             */
-/*   Updated: 2022/11/11 08:41:20 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:57:07 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/*
+put number in hex
+if maj = X, it will output in maj
+*/
 int	ft_put_hex(unsigned int nb, char maj)
 {
 	int		size;

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 12:31:43 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/08 13:07:08 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:56:22 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ static char	ft_find(char *s)
 	return ('0');
 }
 
+/*
+return line from fd
+*/
 char	*get_next_line(int fd)
 {
 	static char	*book[INT_MAX / 2];

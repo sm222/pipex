@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:07:18 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/21 13:11:27 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:14:38 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void	*ft_safe_free(void *p);
 void	ft_bzero(void *s, size_t n);
 void	**ft_double_sfree(void **ptr);
 void	*ft_calloc(size_t count, size_t size);
-void	*ft_realloc(void *old, size_t count, size_t size, size_t new_size);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memchr(const void *s, int c, size_t n);
+char	**ft_str_split(char *s, char *list, char c);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
-char	**ft_str_split(char *s, char *list, char c);
+void	*ft_realloc(void *old, size_t count, size_t size, size_t new_size);
 
 //output								//
 
@@ -85,6 +85,10 @@ int		ft_putendl_fd(char *s, int fd);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
+
+//fd									//
+
+int		ft_close_fds(int **fds, int f_ptr);
 
 //bonus									//
 

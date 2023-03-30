@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_p.c                                         :+:      :+:    :+:   */
+/*   ft_close_fds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:09:21 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/30 13:03:22 by anboisve         ###   ########.fr       */
+/*   Created: 2023/03/30 11:13:41 by anboisve          #+#    #+#             */
+/*   Updated: 2023/03/30 11:30:30 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 /*
-print a adress like printf
+use to close file descriptors.
+open by pipe on a 2D array.
+if f_prt = 1 the 2D array will be free
 */
-int	ft_put_p(unsigned long p)
+int	ft_close_fds(int **fds, int f_ptr)
 {
-	char	*tmp;
-	int		size;
+	int	i;
+	int	close_nb;
 
-	size = ft_putstr_fd("0x", STDOUT_FILENO);
-	tmp = ft_ulltoa((unsigned long)p, 16);
-	size += ft_putstr_fd(tmp, STDOUT_FILENO);
-	if (tmp)
-		ft_safe_free(tmp);
-	return (size);
+	i = 0;
+	close_nb = 0;
+	while (fds[i])
+	{
+		if (close(fds[i][0]) == 0)
+			close_nb++;
+		if (close(fds[i][1]) == 0)
+			close_nb++;
+		if (f_ptr)
+			ft_safe_free(fds[i]);
+		i++;
+	}
+	if (f_ptr)
+		ft_safe_free(fds);
+	return (close_nb);
 }

@@ -6,12 +6,15 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:33:50 by anboisve          #+#    #+#             */
-/*   Updated: 2022/11/17 10:17:04 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:39:22 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-//redo
+
+/*
+trim the str form front and back
+*/
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	s_i;
@@ -21,7 +24,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	s_i = 0;
 	s_j = ft_strlen(s1);
-	if (s1[0] == 0)
+	if (*s1 == 0)
 		return (ft_strdup(s1));
 	while (ft_strchr(set, (int)s1[s_i]) != NULL && s_i <= s_j)
 		s_i++;

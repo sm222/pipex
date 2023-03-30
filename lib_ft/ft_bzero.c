@@ -6,12 +6,15 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:48:51 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/13 14:50:02 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:04:14 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+clean memorry
+*/
 void	ft_bzero(void *s, size_t n)
 {
 	if (!s)

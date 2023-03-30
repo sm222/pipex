@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 10:25:48 by anboisve          #+#    #+#             */
-/*   Updated: 2022/11/17 17:39:01 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:29:30 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,22 @@ static void	set_str(char *s, int i, int long n)
 		s[i] = n % 10 + '0';
 }
 
+/*
+take a int and return a malloc str with the number in char
+*/
 char	*ft_itoa(int n)
 {
-	char		*r;
+	char		*new;
 	long int	temp;
 
 	temp = n;
-	r = ft_calloc(num_s(n) + 1, sizeof(char));
-	if (!r)
+	new = ft_calloc(num_s(n) + 1, sizeof(char));
+	if (!new)
 		return (NULL);
 	else if (temp < 0)
 		temp = temp * -1;
-	set_str(r, num_s(n) - 1, temp);
+	set_str(new, num_s(n) - 1, temp);
 	if (n < 0)
-		r[0] = '-';
-	return (r);
+		new[0] = '-';
+	return (new);
 }

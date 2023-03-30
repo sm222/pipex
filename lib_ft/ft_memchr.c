@@ -6,12 +6,15 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 09:01:49 by anboisve          #+#    #+#             */
-/*   Updated: 2023/01/13 18:20:17 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:42:43 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+return the the mem were it find the same bit, else return NULL
+*/
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	size_t	i;

@@ -21,16 +21,23 @@
 # define ERR_PIPE "can't open the fd in pipe"
 # define ERR_ICI "ici"
 
+typedef struct s_pids
+{
+	pid_t			*pids;
+	struct s_pids	*next;
+}	t_pids;
+
 typedef struct s_pipex
 {
 	int		input;
 	int		output;
-	int		pro_fd[2];
 	char	**path;
 	char	**argv;
 	int		argc;
 	char	**en;
-}	t_pipex;
+	pid_t	*pids;
+	int		**fds;
+}			t_pipex;
 
 void	ft_check_file(t_pipex *data);
 char	*ft_find_cmd(char *cmd, char **path);

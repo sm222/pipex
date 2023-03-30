@@ -27,6 +27,7 @@ void	ft_free_data(t_pipex *data)
 	ft_double_sfree((void **)data->path);
 	data->argv = NULL;
 	data->en = NULL;
+	ft_close_fds(data->fds, 1);
 }
 
 int	ft_error(const char *msg, t_pipex *data)

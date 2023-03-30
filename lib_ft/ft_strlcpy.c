@@ -6,12 +6,16 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 09:18:25 by anboisve          #+#    #+#             */
-/*   Updated: 2022/11/03 20:20:04 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:30:13 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+copy the src in dest of the size of dstsize
+return the size of src
+*/
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	s;

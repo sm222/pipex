@@ -15,7 +15,7 @@ LDIR	=	lib_ft/
 # Compiler and flags
 CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra
-RM	=	rm	-f
+RM		=	rm -f
 
 #-Wall -Werror -Wextra -FD_CLOEXEC
 #-fsanitize=address
@@ -43,15 +43,16 @@ endif
 
 USER = $(shell whoami)
 
-all: libft $(NAME) 
+all: libft $(NAME)
 	@echo $(shell reset)$(GRN)
 	@echo "				pipex made by anboisve\n " $(RESET)
-	@cat logo.txt
+	@cat .logo.txt
 	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
 $(NAME): $(OBJS_LIST)
 	@$(CC) $(CFLAGS) $(OBJS_LIST) $(LDIR)$(LIBFT) -o $(NAME)
 
 bonus:
+	@$(MAKE) -C $(LDIR)
 	make WITH_BONUS=1 all
 
 libft:
@@ -62,15 +63,15 @@ libft:
 clean:
 	$(RM) $(OBJS)
 	$(RM) $(BOBJS)
-	@$(MAKE) -C $(LDIR) clean
+	@make -C $(LDIR) clean
 	@echo $(shell clear) $(GRN) clean *.o$(RESET)
 
 # Removes objects and executables
 fclean: clean
 	@$(RM) $(NAME)
-	@$(MAKE) -C $(LDIR) fclean
-
+	@make -C $(LDIR) fclean
 	@echo $(shell clear) $(GRN) clean all$(RESET)
+
 
 run:
 	@./pipex logo.txt "cat" wc out

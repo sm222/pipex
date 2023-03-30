@@ -6,12 +6,15 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:00:50 by anboisve          #+#    #+#             */
-/*   Updated: 2023/02/15 13:59:10 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:08:15 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+malloc and put all the memorry to 0
+*/
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*new;

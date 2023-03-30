@@ -6,12 +6,15 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:33:59 by anboisve          #+#    #+#             */
-/*   Updated: 2022/12/07 17:01:20 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:26:39 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+make a copy of s1 and s2 in one str
+*/
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
