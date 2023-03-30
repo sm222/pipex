@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/30 11:23:27 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:56:57 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,40 @@ void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 	data->argc = ac;
 	data->path = ft_make_path(data);
 	ft_check_file(data);
+	data->fds = ft_calloc(--ac, sizeof(int *));
+	if (!data->fds)
+		exit(ft_printf("EXIT_MALLOC\n"));
+	while (ac-- - 1)
+	{
+		data->fds[ac - 1] = ft_calloc(2, sizeof(int));
+		if (!data->fds[ac - 1])
+			exit(ft_printf("EXIT_MALLOC2\n"));
+		if (pipe(data->fds[ac - 1]) == -1)
+			exit(ft_printf("EXIT_PIPE\n"));
+	}
+	dup2(data->input, STDIN_FILENO);
+	dup2(data->output, STDOUT_FILENO);
+}
+
+void	make_fork(t_pids *data)
+{
+	(void)data;
 }
 
 int	main(int ac, char **av, char **en)
 {
 	t_pipex	data;
+	int		i;
 
+	i = 0;
 	if (ac < 5)
 		exit(ft_printf("EXIT\n"));
 	ft_start_data(&data, ac, av, en);
-	data.fds = ft_calloc(--ac, sizeof(int *));
-	while (ac-- - 1)
+	dup2(STDIN_FILENO, data.fds[0][0]);
+	while (i < ac - 2)
 	{
-		data.fds[ac - 1] = ft_calloc(2, sizeof(int));
-		pipe(data.fds[ac - 1]);
+		child(&data, "ls", i++);
+		
 	}
-	ft_printf("%d\n", ft_close_fds(data.fds, 1));
 	return (0);
 }

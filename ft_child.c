@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/28 10:33:07 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:42:12 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,26 @@ void	run_cmd(char *cmd, char **path)
 	exit(1);
 }
 
-void	child(t_pipex *data, char *cmd)
+void	child(t_pipex *data, char *cmd, int i)
 {
 	pid_t	pid;
-	int		fd[2];
 
-	pipe(fd);
 	pid = fork();
 	if (pid)
 	{
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[1]);
-		close(fd[0]);
+		dup2(data->fds[i][0], STDIN_FILENO);
+		close(data->fds[i][0]);
+		close(data->fds[i][1]);
 		waitpid(pid, NULL, WNOHANG);
+		ft_printf("here\n");
 	}
 	else
 	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
+		dup2(data->fds[i][1], STDOUT_FILENO);
+		close(data->fds[i][0]);
+		close(data->fds[i][1]);
 		run_cmd(cmd, data->path);
 		ft_free_data(data);
+		ft_printf("here2\n");
 	}
 }
