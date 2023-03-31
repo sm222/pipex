@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 14:23:13 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:19:55 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 			exit(ft_printf("EXIT_MALLOC2\n"));
 		if (pipe(data->fds[ac - 1]) == -1)
 			exit(ft_printf("EXIT_PIPE\n"));
-		ft_putnbr_fd(ac - 1, 2);
-		ft_putchar_fd('\n', 2);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:13:41 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 14:27:14 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:32:04 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ int	ft_close_fds(int **fds, int f_ptr)
 
 	i = 0;
 	close_nb = 0;
-	while (fds[i])
+	while (fds && fds[i])
 	{
-		ft_putnbr_fd(i, 2);
-		ft_putchar_fd('\n', 2);
 		if (close(fds[i][0]) == 0)
 			close_nb++;
 		if (close(fds[i][1]) == 0)
