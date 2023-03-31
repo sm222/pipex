@@ -23,13 +23,15 @@ RM		=	rm -f
 # Sources are all .c files
 SRCS	=	utils.c\
 			pipex.c\
-			ft_child.c
+			ft_child.c\
+			pid_ft.c
 
 OBJS	=	$(SRCS:.c=.o)
 
 BSRCS	=	utils.c\
 			bonus_pipex.c\
-			ft_child.c
+			ft_child.c\
+			pid_ft.c
 
 
 BOBJS	=	$(BSRCS:.c=.o)
@@ -77,13 +79,12 @@ run:
 	@./pipex logo.txt "cat" wc out
 
 mc: all clean
-	@./pipex
 
 mem:
-	valgrind -s ./pipex logo.txt "cat" wc out
+	@valgrind --leak-check=full --trace-children=yes --track-fds=yes ./pipex .logo.txt "cat" wc out
 
 mem2:
-	leaks -atExit -- ./pipex logo.txt "cat" wc out
+	leaks -atExit -- ./pipex .logo.txt "cat" wc out
 # Removes objects and executables and remakes
 re: fclean all
 

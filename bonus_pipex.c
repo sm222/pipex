@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 09:16:37 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:43:39 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int	main(int ac, char **av, char **en)
 {
 	t_pipex	data;
 	int		i;
+	t_pids	*tmp;
 
 	i = 0;
+	data.pids = NULL;
 	if (ac < 4)
 		exit(ft_printf("EXIT\n"));
 	ft_start_data(&data, ac, av, en);
@@ -47,5 +49,12 @@ int	main(int ac, char **av, char **en)
 		child(&data, av[i + 1], i);
 		i++;
 	}
+	tmp = data.pids;
+	while (tmp)
+	{
+		waitpid(tmp->pid, NULL, 0);
+		tmp = tmp->next;
+	}
+	ft_free_data(&data);
 	return (0);
 }

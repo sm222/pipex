@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 09:36:06 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:48:05 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ execve, exit, fork, pipe,
 unlink, wait, waitpid
 */
 
-void	run_cmd(char *cmd, char **path)
+void	run_cmd(char *cmd, char **path, t_pipex *data)
 {
 	char	**argv;
 	char	*run;
@@ -28,12 +28,16 @@ void	run_cmd(char *cmd, char **path)
 	run = NULL;
 	argv = NULL;
 	argv = ft_split(cmd, ' ');
+	if (!argv)
+		ft_free_data(data);
 	run = ft_find_cmd(argv[0], path);
+	ft_close_fds(data->fds, 0);
 	if (run)
 		execve(run, argv, path);
 	perror(argv[0]);
 	ft_safe_free(run);
 	ft_double_sfree((void **)argv);
+	ft_free_data(data);
 	exit(1);
 }
 
@@ -45,23 +49,37 @@ void	child(t_pipex *data, char *cmd, int i)
 	if (pid)
 	{
 		if (i == 0)
+		{
 			dup2(data->input, STDIN_FILENO);
+			close(data->input);
+		}
 		else
+		{
 			dup2(data->fds[i][0], STDIN_FILENO);
-		close(data->fds[i][0]);
+			close(data->fds[i][0]);
+		}
 		close(data->fds[i][1]);
-		waitpid(pid, NULL, WNOHANG);
+		if (i != 0)
+		{
+			if (!make_pid_node(&data->pids, pid))
+				ft_error("malloc fail", data);
+		}
 	}
 	else
 	{
 		if (i == data->argc - 3)
+		{
 			dup2(data->output, STDOUT_FILENO);
+			close(data->output);
+		}
 		else
+		{
 			dup2(data->fds[i][1], STDOUT_FILENO);
+			close(data->fds[i][1]);
+		}
 		close(data->fds[i][0]);
-		close(data->fds[i][1]);
 		if (i != 0)
-			run_cmd(cmd, data->path);
+			run_cmd(cmd, data->path, data);
 		ft_free_data(data);
 	}
 }

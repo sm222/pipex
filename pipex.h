@@ -23,7 +23,7 @@
 
 typedef struct s_pids
 {
-	pid_t			*pids;
+	pid_t			pid;
 	struct s_pids	*next;
 }	t_pids;
 
@@ -36,6 +36,7 @@ typedef struct s_pipex
 	int		argc;
 	char	**en;
 	int		**fds;
+	t_pids	*pids;
 }			t_pipex;
 
 void	ft_check_file(t_pipex *data);
@@ -44,7 +45,12 @@ char	**ft_make_path(t_pipex *data);
 int		ft_error(const char *msg, t_pipex *data);
 void	ft_free_data(t_pipex *data);
 
-void	run_cmd(char *cmd, char **path);
+void	run_cmd(char *cmd, char **path, t_pipex *data);
 void	child(t_pipex *data, char *cmd, int i);
+
+//
+
+int		make_pid_node(t_pids **head, pid_t pid);
+void	free_pid(t_pids	**pids);
 
 #endif
