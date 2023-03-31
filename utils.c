@@ -28,13 +28,13 @@ void	ft_free_data(t_pipex *data)
 	data->argv = NULL;
 	data->en = NULL;
 	ft_close_fds(data->fds, 1);
+	close(data->input);
+	close(data->output);
 }
 
 int	ft_error(const char *msg, t_pipex *data)
 {
 	perror(msg);
-	close(data->input);
-	close(data->output);
 	ft_free_data(data);
 	exit(1);
 }

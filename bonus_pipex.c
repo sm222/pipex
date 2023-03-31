@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/30 17:56:57 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:16:37 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 		if (pipe(data->fds[ac - 1]) == -1)
 			exit(ft_printf("EXIT_PIPE\n"));
 	}
-	dup2(data->input, STDIN_FILENO);
-	dup2(data->output, STDOUT_FILENO);
-}
-
-void	make_fork(t_pids *data)
-{
-	(void)data;
 }
 
 int	main(int ac, char **av, char **en)
@@ -46,14 +39,13 @@ int	main(int ac, char **av, char **en)
 	int		i;
 
 	i = 0;
-	if (ac < 5)
+	if (ac < 4)
 		exit(ft_printf("EXIT\n"));
 	ft_start_data(&data, ac, av, en);
-	dup2(STDIN_FILENO, data.fds[0][0]);
 	while (i < ac - 2)
 	{
-		child(&data, "ls", i++);
-		
+		child(&data, av[i + 1], i);
+		i++;
 	}
 	return (0);
 }
