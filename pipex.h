@@ -19,7 +19,6 @@
 # include <sys/wait.h>
 
 # define ERR_PIPE "can't open the fd in pipe"
-# define ERR_ICI "ici"
 
 typedef struct s_pids
 {

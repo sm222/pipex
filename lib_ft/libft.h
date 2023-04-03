@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:07:18 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/30 14:14:38 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:39:44 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		ft_toupper(int c);
 //str												\manipulation
 
 char	*ft_strdup(const char *s1);
+char	*ft_strdup_c(const char *str, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -67,7 +68,7 @@ void	**ft_double_sfree(void **ptr);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memchr(const void *s, int c, size_t n);
-char	**ft_str_split(char *s, char *list, char c);
+char	**ft_str_split(const char *s, char **list);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);

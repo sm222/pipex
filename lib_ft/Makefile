@@ -72,8 +72,8 @@ BOBJS	=	$(BSRCS:.c=.o)
 all: $(NAME)
 
 # Generates output file
-$(NAME): $(OBJS)
-	ar -rcs $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(BOBJS)
+	ar -rcs $(NAME) $(OBJS) $(BOBJS)
 
 bonus: $(BOBJS)
 	ar -rs $(NAME) $(BOBJS)

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 15:48:05 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:45:00 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	run_cmd(char *cmd, char **path, t_pipex *data)
 
 	run = NULL;
 	argv = NULL;
-	argv = ft_split(cmd, ' ');
+	argv = ft_str_split(cmd, ft_split("''* *\"\"*()*<>", '*'));
 	if (!argv)
 		ft_free_data(data);
 	run = ft_find_cmd(argv[0], path);

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 17:19:55 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:55:59 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av, char **en)
 	i = 0;
 	data.pids = NULL;
 	if (ac != 5)
-		exit(ft_printf("EXIT\n"));
+		exit(ft_printf("format: infile cmd1 cmd 2 outfile\n"));
 	ft_start_data(&data, ac, av, en);
 	while (i < ac - 2)
 	{

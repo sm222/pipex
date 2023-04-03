@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:12:13 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/30 12:50:48 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/02 16:14:18 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_print_select(va_list list, char c)
 }
 
 /*
-use like the real pritf
+use like the real printf
 s
 i d
 c
