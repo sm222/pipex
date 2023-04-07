@@ -9,6 +9,7 @@ RESET	=	"\x1B[0m"
 CLE 	=	\e[1;1H\e[2J
 
 NAME	=	pipex
+B_NAME	=	pipex_bonus
 LIBFT	=	libft.a
 LDIR	=	lib_ft/
 
@@ -20,6 +21,7 @@ RM		=	rm -f
 #-Wall -Werror -Wextra -FD_CLOEXEC
 #-fsanitize=address
 #--recurse-submodules
+
 # Sources are all .c files
 SRCS	=	utils.c\
 			pipex.c\
@@ -33,15 +35,7 @@ BSRCS	=	utils.c\
 			ft_child.c\
 			pid_ft.c
 
-
 BOBJS	=	$(BSRCS:.c=.o)
-
-ifdef WITH_BONUS
-OBJS_LIST = $(BOBJS)
-else
-OBJS_LIST = $(OBJS)
-endif
-
 
 USER = $(shell whoami)
 
@@ -50,27 +44,37 @@ all: libft $(NAME)
 	@echo "				pipex made by anboisve\n " $(RESET)
 	@cat .logo.txt
 	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
-$(NAME): $(OBJS_LIST)
-	@$(CC) $(CFLAGS) $(OBJS_LIST) $(LDIR)$(LIBFT) -o $(NAME)
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LDIR)$(LIBFT) -o $(NAME)
 
-bonus:
-	@$(MAKE) -C $(LDIR)
-	make WITH_BONUS=1 all
+$(OBJS): $(SRCS)
+	@$(CC) $(CFLAGS) -c $(SRCS)
+
+bonus: libft $(B_NAME)
+	@echo $(shell reset)$(GRN)
+	@echo "				pipex made by anboisve\n " $(RESET)
+	@cat .logo.txt
+	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
+$(B_NAME): $(BOBJS)
+	@$(CC) $(CFLAGS) $(BOBJS) $(LDIR)$(LIBFT) -o $(B_NAME)
+
 
 libft:
+	@echo $(GRN)making libft$(WHT)
 	@$(MAKE) -C $(LDIR)
 
 # Generates output file
 # Removes objects
 clean:
-	$(RM) $(OBJS)
-	$(RM) $(BOBJS)
+	@$(RM) $(OBJS)
+	@$(RM) $(BOBJS)
 	@make -C $(LDIR) clean
 	@echo $(shell clear) $(GRN) clean *.o$(RESET)
 
 # Removes objects and executables
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) $(B_NAME)
 	@make -C $(LDIR) fclean
 	@echo $(shell clear) $(GRN) clean all$(RESET)
 

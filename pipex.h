@@ -45,7 +45,7 @@ int		ft_error(const char *msg, t_pipex *data);
 void	ft_free_data(t_pipex *data);
 
 void	run_cmd(char *cmd, char **path, t_pipex *data);
-void	child(t_pipex *data, char *cmd, int i);
+void	task(t_pipex *data, char *cmd, int i);
 
 //
 

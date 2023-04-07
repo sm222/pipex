@@ -37,7 +37,7 @@ int	ft_error(const char *msg, t_pipex *data)
 {
 	perror(msg);
 	ft_free_data(data);
-	exit(1);
+	exit(errno);
 }
 
 char	**ft_make_path(t_pipex *data)
@@ -45,8 +45,8 @@ char	**ft_make_path(t_pipex *data)
 	size_t	i;
 	char	**new;
 
-	new = NULL;
 	i = 0;
+	new = NULL;
 	while (data->en[i])
 	{
 		if (ft_strncmp(data->en[i], "PATH=", 5) == 0)
@@ -69,12 +69,16 @@ char	*ft_find_cmd(char *cmd, char **path)
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
 	tmp = ft_combine("./%s", cmd);
+	if (!tmp)
+		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (tmp);
 	tmp = ft_safe_free(tmp);
 	while (path[i])
 	{
 		tmp = ft_combine("%s/%s", path[i], cmd);
+		if (!tmp)
+			return (NULL);
 		if (access(tmp, F_OK | X_OK) == 0)
 			return (tmp);
 		tmp = ft_safe_free(tmp);
@@ -87,9 +91,11 @@ void	ft_check_file(t_pipex *data)
 {
 	data->output = open(data->argv[data->argc - 1] \
 	, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (data->output < 0)
-		ft_error(data->argv[data->argc - 1], data);
 	data->input = open(data->argv[1], O_RDONLY);
-	if (data->input < 0)
+	if (data->input < 0 || data->output < 0)
+	{
+		if (data->output < 0)
+			perror(data->argv[data->argc - 1]);
 		ft_error(data->argv[1], data);
+	}
 }

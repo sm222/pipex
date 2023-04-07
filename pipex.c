@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/03 17:55:59 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:49:57 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 	ft_check_file(data);
 	data->fds = ft_calloc(--ac, sizeof(int *));
 	if (!data->fds)
-		exit(ft_printf("EXIT_MALLOC\n"));
+		ft_error("ft_calloc", data);
 	while (ac-- - 1)
 	{
 		data->fds[ac - 1] = ft_calloc(2, sizeof(int));
 		if (!data->fds[ac - 1])
-			exit(ft_printf("EXIT_MALLOC2\n"));
+			ft_error("ft_calloc", data);
 		if (pipe(data->fds[ac - 1]) == -1)
-			exit(ft_printf("EXIT_PIPE\n"));
+			ft_error("pipe", data);
 	}
 }
 
@@ -44,11 +44,11 @@ int	main(int ac, char **av, char **en)
 	i = 0;
 	data.pids = NULL;
 	if (ac != 5)
-		exit(ft_printf("format: infile cmd1 cmd 2 outfile\n"));
+		ft_error("format: infile cmd1 cmd2 outfile", NULL);
 	ft_start_data(&data, ac, av, en);
 	while (i < ac - 2)
 	{
-		child(&data, av[i + 1], i);
+		task(&data, av[i + 1], i);
 		i++;
 	}
 	tmp = data.pids;

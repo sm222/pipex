@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 13:43:39 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:42:01 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	main(int ac, char **av, char **en)
 	i = 0;
 	data.pids = NULL;
 	if (ac < 4)
-		exit(ft_printf("EXIT\n"));
+		ft_error("format: infile  cmd > 1  outfile", NULL);
 	ft_start_data(&data, ac, av, en);
 	while (i < ac - 2)
 	{
-		child(&data, av[i + 1], i);
+		task(&data, av[i + 1], i);
 		i++;
 	}
 	tmp = data.pids;

@@ -53,11 +53,8 @@ SRCS	=	ft_atoi.c\
 			ft_put_hex.c\
 			ft_put_p.c\
 			ft_put_u.c\
-			ft_ulltoa.c
-
-OBJS	=	$(SRCS:.c=.o)
-# BSources are all .c files
-BSRCS	=	ft_lstnew.c\
+			ft_ulltoa.c\
+			ft_lstnew.c\
 			ft_lstadd_front.c\
 			ft_lstsize.c\
 			ft_lstlast.c\
@@ -67,22 +64,19 @@ BSRCS	=	ft_lstnew.c\
 			ft_lstiter.c\
 			ft_lstmap.c
 
-BOBJS	=	$(BSRCS:.c=.o)
+OBJS	=	$(SRCS:.c=.o)
 
 all: $(NAME)
 
 # Generates output file
-$(NAME): $(OBJS) $(BOBJS)
-	ar -rcs $(NAME) $(OBJS) $(BOBJS)
+$(NAME): $(OBJS)
+	@ar -rcs $(NAME) $(OBJS)
 
-bonus: $(BOBJS)
-	ar -rs $(NAME) $(BOBJS)
-
-$(BOBJS): $(BSRCS)
-	$(CC) $(CFLAGS) -c $(BSRCS)
+$(OBJS): $(SRCS)
+	@$(CC) $(CFLAGS) -c $(SRCS)
 # Removes objects
 clean:
-	$(RM) $(OBJS) $(BOBJS)
+	$(RM) $(OBJS)
 
 # Removes objects and executables
 fclean: clean
