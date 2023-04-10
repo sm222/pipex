@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/07 14:48:11 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:24:03 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	task(t_pipex *data, char *cmd, int i)
 
 	pid = fork();
 	if (pid == -1)
-		ft_error("can't make pid", data);
+		ft_error("fork", data);
 	if (pid)
 		child(data, i, pid);
 	else
