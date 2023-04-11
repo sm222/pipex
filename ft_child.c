@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/10 16:24:03 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/11 09:24:53 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	run_cmd(char *cmd, char **path, t_pipex *data)
 		if (!argv)
 			ft_error("ft_str_split", data);
 		run = ft_find_cmd(argv[0], path);
-		if (!run)
-			ft_error("ft_find_cmd", data);
 		ft_close_fds(data->fds, 1);
 		execve(run, argv, path);
 	}
+	else
+		ft_error("ft_split", data);
 	perror(argv[0]);
 	ft_safe_free(run);
 	ft_double_sfree((void **)argv);
@@ -49,7 +49,7 @@ void	run_cmd(char *cmd, char **path, t_pipex *data)
 	exit(1);
 }
 
-void	child(t_pipex *data, int i, pid_t pid)
+void	set_input(t_pipex *data, int i, pid_t pid)
 {
 	if (i == 0)
 	{
@@ -77,7 +77,7 @@ void	task(t_pipex *data, char *cmd, int i)
 	if (pid == -1)
 		ft_error("fork", data);
 	if (pid)
-		child(data, i, pid);
+		set_input(data, i, pid);
 	else
 	{
 		if (i == data->argc - 3)

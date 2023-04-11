@@ -84,7 +84,7 @@ char	*ft_find_cmd(char *cmd, char **path)
 		tmp = ft_safe_free(tmp);
 		i++;
 	}
-	return (NULL);
+	return (ft_combine("can,t find %s", cmd));
 }
 
 void	ft_check_file(t_pipex *data)

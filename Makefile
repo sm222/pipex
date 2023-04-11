@@ -69,14 +69,16 @@ clean:
 	@$(RM) $(OBJS)
 	@$(RM) $(BOBJS)
 	@make -C $(LDIR) clean
-	@echo $(shell clear) $(GRN) clean *.o$(RESET)
+	@echo $(shell clear)
+	@echo -n $(GRN)
+	@echo clean *.o$(RESET)
 
 # Removes objects and executables
 fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) $(B_NAME)
 	@make -C $(LDIR) fclean
-	@echo $(shell clear) $(GRN) clean all$(RESET)
+	@echo $(shell clear)$(GRN)clean all$(RESET)
 
 
 run:
