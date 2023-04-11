@@ -36,6 +36,8 @@ typedef struct s_pipex
 	char	**en;
 	int		**fds;
 	t_pids	*pids;
+	int		i;
+	int		j;
 }			t_pipex;
 
 void	ft_check_file(t_pipex *data);
@@ -51,5 +53,8 @@ void	task(t_pipex *data, char *cmd, int i);
 
 int		make_pid_node(t_pids **head, pid_t pid);
 void	free_pid(t_pids	**pids);
+
+//
+void	here_doc(int ac, char **va, char **en, t_pipex *data);
 
 #endif

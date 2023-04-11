@@ -33,7 +33,8 @@ OBJS	=	$(SRCS:.c=.o)
 BSRCS	=	utils.c\
 			bonus_pipex.c\
 			ft_child.c\
-			pid_ft.c
+			pid_ft.c\
+			here_doc.c
 
 BOBJS	=	$(BSRCS:.c=.o)
 

@@ -92,7 +92,9 @@ void	ft_check_file(t_pipex *data)
 	data->output = open(data->argv[data->argc - 1] \
 	, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	data->input = open(data->argv[1], O_RDONLY);
-	if (data->input < 0 || data->output < 0)
+	if (data->input < 0)
+		perror(data->argv[1]);
+	if (data->output < 0)
 	{
 		if (data->output < 0)
 			perror(data->argv[data->argc - 1]);

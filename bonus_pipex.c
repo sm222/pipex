@@ -6,13 +6,13 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/07 14:42:01 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:43:11 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
+static void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 {
 	ft_bzero(data, sizeof(t_pipex));
 	data->argv = av;
@@ -22,33 +22,33 @@ void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 	ft_check_file(data);
 	data->fds = ft_calloc(--ac, sizeof(int *));
 	if (!data->fds)
-		exit(ft_printf("EXIT_MALLOC\n"));
+		ft_error("ft_calloc", data);
 	while (ac-- - 1)
 	{
 		data->fds[ac - 1] = ft_calloc(2, sizeof(int));
 		if (!data->fds[ac - 1])
-			exit(ft_printf("EXIT_MALLOC2\n"));
+			ft_error("ft_calloc", data);
 		if (pipe(data->fds[ac - 1]) == -1)
-			exit(ft_printf("EXIT_PIPE\n"));
+			ft_error("pipe", data);
 	}
 }
 
 int	main(int ac, char **av, char **en)
 {
 	t_pipex	data;
-	int		i;
 	t_pids	*tmp;
 
-	i = 0;
+	data.i = 0;
+	data.j = 0;
 	data.pids = NULL;
 	if (ac < 4)
 		ft_error("format: infile  cmd > 1  outfile", NULL);
-	ft_start_data(&data, ac, av, en);
-	while (i < ac - 2)
-	{
-		task(&data, av[i + 1], i);
-		i++;
-	}
+	if (ft_strncmp("here_doc", av[1], 9) == 0)
+		here_doc(ac, av, en, &data);
+	else
+		ft_start_data(&data, ac, av, en);
+	while (data.i < ac - 2)
+		task(&data, av[1 + data.i++], data.j++);
 	tmp = data.pids;
 	while (tmp)
 	{

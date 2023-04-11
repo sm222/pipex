@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/07 15:49:57 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:42:56 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //285 bytes in 12 blocks
 
-void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
+static void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 {
 	ft_bzero(data, sizeof(t_pipex));
 	data->argv = av;
@@ -38,19 +38,16 @@ void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 int	main(int ac, char **av, char **en)
 {
 	t_pipex	data;
-	int		i;
 	t_pids	*tmp;
 
-	i = 0;
+	data.i = 0;
+	data.j = 0;
 	data.pids = NULL;
 	if (ac != 5)
 		ft_error("format: infile cmd1 cmd2 outfile", NULL);
 	ft_start_data(&data, ac, av, en);
-	while (i < ac - 2)
-	{
-		task(&data, av[i + 1], i);
-		i++;
-	}
+	while (data.i < ac - 2)
+		task(&data, av[1 + data.i++], data.j++);
 	tmp = data.pids;
 	while (tmp)
 	{

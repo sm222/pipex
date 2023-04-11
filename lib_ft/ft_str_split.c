@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:20:33 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/11 12:37:13 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:02:57 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ static int	return_index(char *s, char **list, size_t *i, size_t *j)
 	if (catch_type(s[(*i)], list) == 2)
 	{
 		mem = give_index(list, s[(*i)++ + (*j)++]);
+		if (s[(*i)] == mem)
+		{
+			(*i)++;
+			return (2);
+		}
 		while (s[(*i) + (*j)] != mem && s[(*i) + (*j)])
 			(*j)++;
 		return (1);
@@ -97,6 +102,8 @@ char	**ft_str_split(const char *s, char **list)
 		index.l = return_index((char *)s, list, &index.i, &index.j);
 		if (!s[index.i] || !s[index.i + index.j])
 			break ;
+		if (index.l == 2)
+			continue ;
 		index.k++;
 		tmp = ft_substr(s, index.i, index.j);
 		ft_lstadd_back(&data, ft_lstnew(tmp));
