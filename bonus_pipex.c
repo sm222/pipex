@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/11 17:43:11 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:10:00 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ int	main(int ac, char **av, char **en)
 	data.pids = NULL;
 	if (ac < 4)
 		ft_error("format: infile  cmd > 1  outfile", NULL);
-	if (ft_strncmp("here_doc", av[1], 9) == 0)
-		here_doc(ac, av, en, &data);
-	else
-		ft_start_data(&data, ac, av, en);
+	ft_start_data(&data, ac, av, en);
 	while (data.i < ac - 2)
 		task(&data, av[1 + data.i++], data.j++);
 	tmp = data.pids;
