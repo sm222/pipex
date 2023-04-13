@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/11 09:24:53 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:46:28 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,8 @@ void	set_input(t_pipex *data, int i, pid_t pid)
 		close(data->fds[i][0]);
 	}
 	close(data->fds[i][1]);
-	if (i != 0)
-	{
-		if (!make_pid_node(&data->pids, pid))
-			ft_error("make_pid_node", data);
-	}
+	if (!make_pid_node(&data->pids, pid))
+		ft_error("make_pid_node", data);
 }
 
 void	task(t_pipex *data, char *cmd, int i)

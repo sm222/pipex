@@ -55,6 +55,6 @@ int		make_pid_node(t_pids **head, pid_t pid);
 void	free_pid(t_pids	**pids);
 
 //
-void	here_doc(int ac, char **va, char **en, t_pipex *data);
+void	here_doc(t_pipex *data);
 
 #endif

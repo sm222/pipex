@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/11 17:42:56 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:45:34 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ static void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 	data->fds = ft_calloc(--ac, sizeof(int *));
 	if (!data->fds)
 		ft_error("ft_calloc", data);
-	while (ac-- - 1)
+	while (ac--)
 	{
+		ft_putendl_fd("t", 2);
 		data->fds[ac - 1] = ft_calloc(2, sizeof(int));
 		if (!data->fds[ac - 1])
 			ft_error("ft_calloc", data);

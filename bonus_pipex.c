@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/12 17:10:00 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:47:32 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
 {
-	ft_bzero(data, sizeof(t_pipex));
 	data->argv = av;
 	data->en = en;
 	data->argc = ac;
@@ -38,12 +37,12 @@ int	main(int ac, char **av, char **en)
 	t_pipex	data;
 	t_pids	*tmp;
 
-	data.i = 0;
-	data.j = 0;
-	data.pids = NULL;
+	ft_bzero(&data, sizeof(t_pipex));
 	if (ac < 4)
 		ft_error("format: infile  cmd > 1  outfile", NULL);
 	ft_start_data(&data, ac, av, en);
+	if (ft_strncmp(av[1], "here_doc", 9) == 0)
+		here_doc(&data);
 	while (data.i < ac - 2)
 		task(&data, av[1 + data.i++], data.j++);
 	tmp = data.pids;
