@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:20:33 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/11 17:02:57 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/13 10:30:19 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	give_index(char **list, char in)
 	i = 0;
 	while (list[i])
 	{
-		if (in == list[i][0] && ft_strlen(list[i]) > 1)
+		if (list[i][0] && in == list[i][0] && ft_strlen(list[i]) > 1)
 			return (list[i][1]);
 		i++;
 	}
@@ -64,27 +64,30 @@ static char	**return_double(t_list *lst, int mode)
 	return (tmp);
 }
 
-static int	return_index(char *s, char **list, size_t *i, size_t *j)
+static int	return_index(char *s, char **list, t_index *index)
 {
 	char	mem;
 
-	while (catch_type(s[(*i)], list) == 1 && s[(*i)])
-		(*i)++;
-	if (catch_type(s[(*i)], list) == 2)
+	while (s[index->i] && catch_type(s[index->i], list) == 1)
+		index->i++;
+	if (s[index->i] && catch_type(s[(index->i)], list) == 2)
 	{
-		mem = give_index(list, s[(*i)++ + (*j)++]);
-		if (s[(*i)] == mem)
+		mem = give_index(list, s[index->i++ + index->j++]);
+		if (s[index->i] && s[index->i] == mem)
 		{
-			(*i)++;
+			index->i++;
 			return (2);
 		}
-		while (s[(*i) + (*j)] != mem && s[(*i) + (*j)])
-			(*j)++;
+		while (s[index->i + index->j] && s[index->i + index->j] != mem)
+			index->j++;
 		return (1);
 	}
 	else
-		while (catch_type(s[(*i) + (*j)], list) != 1)
-			(*j)++;
+	{
+		while (catch_type(s[index->i + index->j], list) != 1 && \
+		ft_strlen(s) >= index->i + index->j)
+			index->j++;
+	}
 	return (0);
 }
 
@@ -99,7 +102,7 @@ char	**ft_str_split(const char *s, char **list)
 	while (s[index.i])
 	{
 		index.j = 0;
-		index.l = return_index((char *)s, list, &index.i, &index.j);
+		index.l = return_index((char *)s, list, &index);
 		if (!s[index.i] || !s[index.i + index.j])
 			break ;
 		if (index.l == 2)
