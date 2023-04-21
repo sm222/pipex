@@ -5,56 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 15:49:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/13 17:45:34 by anboisve         ###   ########.fr       */
+/*   Created: 2023/04/16 09:33:16 by anboisve          #+#    #+#             */
+/*   Updated: 2023/04/21 11:20:29 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-//285 bytes in 12 blocks
+/*
+open, close, read, write,
+malloc, free, perror,,
+strerror, access, dup, dup2,
+execve, exit, fork, pipe,
+unlink, wait, waitpid
+*/
 
-static void	ft_start_data(t_pipex *data, int ac, char **av, char **en)
+void	ft_exit(t_pipex *data, int err, char *msg)
 {
-	ft_bzero(data, sizeof(t_pipex));
+	(void)data;
+	perror(msg);
+	exit(err);
+}
+
+void	set_data(t_pipex *data, int ac, char **av, char **en)
+{
+	data->argc = ac;
 	data->argv = av;
 	data->en = en;
-	data->argc = ac;
+	if (!data->here_doc)
+		data->input = open(av[1], O_RDONLY);
+	data->output = \
+	open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (data->output < 0)
+		ft_exit(data, errno, av[ac - 1]);
+	if (data->input < 0)
+		ft_exit(data, errno, av[1]);
+}
+
+void	pipex(t_pipex *data)
+{
+	int	i;
+	int	cmd;
+
+	i = 0;
+	cmd = 3;
 	data->path = ft_make_path(data);
-	ft_check_file(data);
-	data->fds = ft_calloc(--ac, sizeof(int *));
-	if (!data->fds)
-		ft_error("ft_calloc", data);
-	while (ac--)
+	first(data, 0, 2);
+	while (cmd < data->argc - 1)
 	{
-		ft_putendl_fd("t", 2);
-		data->fds[ac - 1] = ft_calloc(2, sizeof(int));
-		if (!data->fds[ac - 1])
-			ft_error("ft_calloc", data);
-		if (pipe(data->fds[ac - 1]) == -1)
-			ft_error("pipe", data);
+		mid(data, i, cmd);
+		i++;
+		cmd++;
 	}
 }
 
 int	main(int ac, char **av, char **en)
 {
 	t_pipex	data;
-	t_pids	*tmp;
 
-	data.i = 0;
-	data.j = 0;
-	data.pids = NULL;
-	if (ac != 5)
-		ft_error("format: infile cmd1 cmd2 outfile", NULL);
-	ft_start_data(&data, ac, av, en);
-	while (data.i < ac - 2)
-		task(&data, av[1 + data.i++], data.j++);
-	tmp = data.pids;
-	while (tmp)
-	{
-		waitpid(tmp->pid, NULL, 0);
-		tmp = tmp->next;
-	}
-	ft_free_data(&data);
+	ft_bzero(&data, sizeof(t_pipex));
+	if (ac < 5)
+		return (1);
+	if (ft_strncmp(av[1], "here_doc", 9) == 0)
+		data.here_doc = 1;
+	set_data(&data, ac, av, en);
+	data.nbr_cmd = make_pipes(ac -3, &data.pipes);
+	pipex(&data);
+	//wait_node(&data.pids);
 	return (0);
 }
+
+//read that dummy

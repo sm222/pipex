@@ -20,26 +20,6 @@ execve, exit, fork, pipe,
 unlink, wait, waitpid
 */
 
-void	ft_free_data(t_pipex *data)
-{
-	if (!data)
-		return ;
-	ft_double_sfree((void **)data->path);
-	data->argv = NULL;
-	data->en = NULL;
-	ft_close_fds(data->fds, 1);
-	close(data->input);
-	close(data->output);
-	free_pid(&data->pids);
-}
-
-int	ft_error(const char *msg, t_pipex *data)
-{
-	perror(msg);
-	ft_free_data(data);
-	exit(errno);
-}
-
 char	**ft_make_path(t_pipex *data)
 {
 	size_t	i;
@@ -56,7 +36,7 @@ char	**ft_make_path(t_pipex *data)
 	if (data->en[i] != NULL)
 		new = ft_split(data->en[i] + 5, ':');
 	if (!new)
-		ft_error("can't find path", data);
+		return (NULL);
 	return (new);
 }
 
@@ -87,17 +67,27 @@ char	*ft_find_cmd(char *cmd, char **path)
 	return (ft_combine("can,t find %s", cmd));
 }
 
-void	ft_check_file(t_pipex *data)
+int	make_pipes(int size, int ***pipes)
 {
-	data->output = open(data->argv[data->argc - 1] \
-	, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	data->input = open(data->argv[1], O_RDONLY);
-	if (data->input < 0)
-		perror(data->argv[1]);
-	if (data->output < 0)
+	int	i;
+	int	**fd;
+
+	i = 0;
+	if (size < 1)
+		return (0);
+	fd = ft_calloc(size, sizeof(int *));
+	if (!fd)
+		return (-1);
+	while (i < size)
 	{
-		if (data->output < 0)
-			perror(data->argv[data->argc - 1]);
-		ft_error(data->argv[1], data);
+		fd[i] = ft_calloc(2, sizeof(int));
+		if (!fd[i] || pipe(fd[i]) == -1)
+		{
+			ft_close_fds(fd, 1, i);
+			return (-1);
+		}
+		i++;
 	}
+	*pipes = fd;
+	return (i);
 }

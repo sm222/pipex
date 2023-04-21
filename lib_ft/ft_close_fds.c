@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:13:41 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 17:32:04 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:03:19 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,19 @@ use to close file descriptors.
 open by pipe on a 2D array.
 if f_prt = 1 the 2D array will be free
 */
-int	ft_close_fds(int **fds, int f_ptr)
+
+/// @brief use to close file descriptors open by pipe on a 2D array.
+/// @param fds double array of pointer 
+/// @param f_ptr flag to free or not the double array if it is true
+/// @return number of fd close
+int	ft_close_fds(int **fds, int f_ptr, int size)
 {
 	int	i;
 	int	close_nb;
 
 	i = 0;
 	close_nb = 0;
-	while (fds && fds[i])
+	while (size--)
 	{
 		if (close(fds[i][0]) == 0)
 			close_nb++;

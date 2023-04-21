@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:12:06 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/13 16:37:11 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:47:37 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	here_doc(t_pipex *data)
 {
-	
+	(void)data;
 }

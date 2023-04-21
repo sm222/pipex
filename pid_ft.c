@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:40:23 by anboisve          #+#    #+#             */
-/*   Updated: 2023/03/31 13:31:25 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:41:01 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int	make_pid_node(t_pids **head, pid_t pid)
 	{
 		(*head) = make_node(pid);
 		if (!(*head))
+		{
+			free_pid(head);
 			return (0);
+		}
 		else
 			return (1);
 	}
@@ -73,6 +76,24 @@ int	make_pid_node(t_pids **head, pid_t pid)
 		tmp = tmp->next;
 	tmp->next = make_node(pid);
 	if (!tmp->next)
+	{
+		free_pid(head);
 		return (0);
+	}
 	return (1);
+}
+
+void	wait_node(t_pids **head)
+{
+	t_pids	*tmp;
+	t_pids	*next;
+
+	tmp = (*head);
+	while (tmp)
+	{
+		waitpid(tmp->pid, NULL, 0);
+		next = tmp->next;
+		ft_safe_free(tmp);
+		tmp = next;
+	}
 }

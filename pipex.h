@@ -18,8 +18,6 @@
 # include <errno.h>
 # include <sys/wait.h>
 
-# define ERR_PIPE "can't open the fd in pipe"
-
 typedef struct s_pids
 {
 	pid_t			pid;
@@ -32,29 +30,28 @@ typedef struct s_pipex
 	int		output;
 	char	**path;
 	char	**argv;
-	int		argc;
 	char	**en;
-	int		**fds;
+	int		**pipes;
+	int		argc;
+	int		here_doc;
 	t_pids	*pids;
-	int		i;
-	int		j;
+	int		nbr_cmd;
+
 }			t_pipex;
 
-void	ft_check_file(t_pipex *data);
 char	*ft_find_cmd(char *cmd, char **path);
 char	**ft_make_path(t_pipex *data);
-int		ft_error(const char *msg, t_pipex *data);
-void	ft_free_data(t_pipex *data);
-
-void	run_cmd(char *cmd, char **path, t_pipex *data);
-void	task(t_pipex *data, char *cmd, int i);
 
 //
-
-int		make_pid_node(t_pids **head, pid_t pid);
 void	free_pid(t_pids	**pids);
+void	wait_node(t_pids **head);
+int		make_pid_node(t_pids **head, pid_t pid);
+void	ft_exit(t_pipex *data, int err, char *msg);
+void	run_cmd(char *cmd, char **path, t_pipex *data);
+void	first(t_pipex *data, int fd_i, int index);
+void	mid(t_pipex *data, int fd_i, int index);
+int		make_pipes(int size, int ***pipes);
 
 //
-void	here_doc(t_pipex *data);
 
 #endif

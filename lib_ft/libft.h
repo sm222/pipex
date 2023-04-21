@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:07:18 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/03 09:39:44 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:07:48 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	**ft_split(char const *s, char c);
 
 //fd									//
 
-int		ft_close_fds(int **fds, int f_ptr);
+int		ft_close_fds(int **fds, int f_ptr, int size);
 
 //bonus									//
 

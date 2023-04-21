@@ -15,7 +15,7 @@ LDIR	=	lib_ft/
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -g
 RM		=	rm -f
 
 #-Wall -Werror -Wextra -FD_CLOEXEC
@@ -23,17 +23,16 @@ RM		=	rm -f
 #--recurse-submodules
 
 # Sources are all .c files
-SRCS	=	utils.c\
-			pipex.c\
-			ft_child.c\
-			pid_ft.c
+SRCS	=	pipex.c\
+			utils.c\
+			pid_ft.c\
+			cmd.c\
+			ft_child.c
+
 
 OBJS	=	$(SRCS:.c=.o)
 
-BSRCS	=	utils.c\
-			bonus_pipex.c\
-			ft_child.c\
-			pid_ft.c\
+BSRCS	=	pipex.c
 
 BOBJS	=	$(BSRCS:.c=.o)
 
@@ -50,13 +49,13 @@ $(NAME): $(OBJS)
 $(OBJS): $(SRCS)
 	@$(CC) $(CFLAGS) -c $(SRCS)
 
-bonus: libft $(B_NAME)
-	@echo $(shell reset)$(GRN)
-	@echo "				pipex made by anboisve\n " $(RESET)
-	@cat .logo.txt
-	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
-$(B_NAME): $(BOBJS)
-	@$(CC) $(CFLAGS) $(BOBJS) $(LDIR)$(LIBFT) -o $(B_NAME)
+#bonus: libft $(B_NAME)
+#	@echo $(shell reset)$(GRN)
+#	@echo "				pipex made by anboisve\n " $(RESET)
+#	@cat .logo.txt
+#	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
+#$(B_NAME): $(BOBJS)
+#	@$(CC) $(CFLAGS) $(BOBJS) $(LDIR)$(LIBFT) -o $(B_NAME)
 
 
 libft:
