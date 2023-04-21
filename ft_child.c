@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/21 11:20:36 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/21 12:09:49 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,9 @@ void	mid(t_pipex *data, int fd_i, int index)
 	}
 	else
 	{
-		ft_putnbr_fd(data->nbr_cmd, 2);
-		ft_putendl_fd(data->argv[index], 2);
 		dup2(data->pipes[fd_i][0], STDIN_FILENO);
 		if (index == data->argc - 2)
-		{
 			dup2(data->output, STDOUT_FILENO);
-			ft_putchar_fd('%', 2);
-		}
 		else
 			dup2(data->pipes[fd_i + 1][1], STDOUT_FILENO);
 		close(data->input);

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 09:33:16 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/21 11:20:29 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/21 12:16:55 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ int	main(int ac, char **av, char **en)
 	t_pipex	data;
 
 	ft_bzero(&data, sizeof(t_pipex));
-	if (ac < 5)
+	if (ac != 5)
 		return (1);
 	if (ft_strncmp(av[1], "here_doc", 9) == 0)
 		data.here_doc = 1;
 	set_data(&data, ac, av, en);
 	data.nbr_cmd = make_pipes(ac -3, &data.pipes);
 	pipex(&data);
-	//wait_node(&data.pids);
+	wait_node(&data.pids);
 	return (0);
 }
 
