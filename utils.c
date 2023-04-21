@@ -20,6 +20,15 @@ execve, exit, fork, pipe,
 unlink, wait, waitpid
 */
 
+void	ft_exit(t_pipex *data, int err, char *msg)
+{
+	ft_double_sfree((void **)data->path);
+	ft_close_fds(data->pipes, 1, data->nbr_pipes);
+	free_pid(&data->pids);
+	perror(msg);
+	exit(err);
+}
+
 char	**ft_make_path(t_pipex *data)
 {
 	size_t	i;

@@ -21,6 +21,7 @@ RM		=	rm -f
 #-Wall -Werror -Wextra -FD_CLOEXEC
 #-fsanitize=address
 #--recurse-submodules
+# --track-fds=yes
 
 # Sources are all .c files
 SRCS	=	pipex.c\
@@ -32,7 +33,12 @@ SRCS	=	pipex.c\
 
 OBJS	=	$(SRCS:.c=.o)
 
-BSRCS	=	pipex.c
+BSRCS	=	bonus_pipex.c\
+			ft_child.c\
+			here_doc.c\
+			pid_ft.c\
+			utils.c\
+			cmd.c
 
 BOBJS	=	$(BSRCS:.c=.o)
 
@@ -49,13 +55,13 @@ $(NAME): $(OBJS)
 $(OBJS): $(SRCS)
 	@$(CC) $(CFLAGS) -c $(SRCS)
 
-#bonus: libft $(B_NAME)
-#	@echo $(shell reset)$(GRN)
-#	@echo "				pipex made by anboisve\n " $(RESET)
-#	@cat .logo.txt
-#	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
-#$(B_NAME): $(BOBJS)
-#	@$(CC) $(CFLAGS) $(BOBJS) $(LDIR)$(LIBFT) -o $(B_NAME)
+bonus: libft $(B_NAME)
+	@echo $(shell reset)$(GRN)
+	@echo "				pipex made by anboisve\n " $(RESET)
+	@cat .logo.txt
+	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
+$(B_NAME): $(BOBJS)
+	@$(CC) $(CFLAGS) $(BOBJS) $(LDIR)$(LIBFT) -o $(B_NAME)
 
 
 libft:

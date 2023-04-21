@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 09:38:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/18 16:13:39 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/21 16:07:25 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	run_cmd(char *cmd, char **path, t_pipex *data)
 	run = NULL;
 	argv = NULL;
 	list = NULL;
+	ft_close_fds(data->pipes, 1, data->nbr_pipes);
 	list = ft_split("*''* *\"\"*	", '*');
 	if (list)
 	{

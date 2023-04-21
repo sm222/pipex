@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/21 12:09:49 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/21 16:20:07 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	first(t_pipex *data, int fd_i, int index)
 		dup2(data->pipes[fd_i][1], STDOUT_FILENO);
 		close(data->input);
 		close(data->output);
-		ft_close_fds(data->pipes, 1, data->nbr_cmd);
 		run_cmd(data->argv[index], data->path, data);
 	}
 }
@@ -70,7 +69,6 @@ void	mid(t_pipex *data, int fd_i, int index)
 			dup2(data->pipes[fd_i + 1][1], STDOUT_FILENO);
 		close(data->input);
 		close(data->output);
-		ft_close_fds(data->pipes, 1, data->nbr_cmd);
 		run_cmd(data->argv[index], data->path, data);
 	}
 }

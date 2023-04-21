@@ -34,8 +34,9 @@ typedef struct s_pipex
 	int		**pipes;
 	int		argc;
 	int		here_doc;
+	int		nbr_pipes;
 	t_pids	*pids;
-	int		nbr_cmd;
+	int		i;
 
 }			t_pipex;
 
@@ -43,6 +44,7 @@ char	*ft_find_cmd(char *cmd, char **path);
 char	**ft_make_path(t_pipex *data);
 
 //
+
 void	free_pid(t_pids	**pids);
 void	wait_node(t_pids **head);
 int		make_pid_node(t_pids **head, pid_t pid);
@@ -51,6 +53,8 @@ void	run_cmd(char *cmd, char **path, t_pipex *data);
 void	first(t_pipex *data, int fd_i, int index);
 void	mid(t_pipex *data, int fd_i, int index);
 int		make_pipes(int size, int ***pipes);
+void	ft_exit(t_pipex *data, int err, char *msg);
+void	here_doc(t_pipex *data);
 
 //
 
