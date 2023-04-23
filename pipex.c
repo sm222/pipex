@@ -6,20 +6,16 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 09:33:16 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/21 17:10:27 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/23 11:20:36 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /*
-open, close, read, write,
-malloc, free, perror,,
-strerror, access, dup, dup2,
-execve, exit, fork, pipe,
-unlink, wait, waitpid
+set the variable to the rigth value
+and open the infile and outfile
 */
-
 static void	set_data(t_pipex *data, int ac, char **av, char **en)
 {
 	data->argc = ac;
@@ -34,25 +30,36 @@ static void	set_data(t_pipex *data, int ac, char **av, char **en)
 		ft_exit(data, errno, av[1]);
 }
 
+/*
+run all the comments
+*/
 void	pipex(t_pipex *data)
 {
-	int	cmd;
-
 	data->i = 0;
-	cmd = 3;
+	data->cmd = 2;
 	data->path = ft_make_path(data);
-	first(data, 0, 2);
-	while (cmd < data->argc - 1)
-	{
-		mid(data, data->i, cmd);
-		data->i++;
-		cmd++;
-	}
+	if (!data->path)
+		ft_exit(data, 1, "can't find PATH");
+	first(data, data->i, data->cmd++);
+	while (data->cmd < data->argc - 1)
+		mid(data, data->i++, data->cmd++);
 	ft_close_fds(data->pipes, 1, data->nbr_pipes);
 	close(data->input);
 	close(data->output);
 }
 
+/*
+call the 4 main fontion
+
+set_data, put the rigth value in the variable
+
+make_pipes, open the rigth ammont of pipe
+
+pipex, the one runing the commands and redirecting the data
+
+wait_node, making sure all commande finish runing before ending the programe
+
+*/
 int	main(int ac, char **av, char **en)
 {
 	t_pipex	data;
@@ -68,3 +75,13 @@ int	main(int ac, char **av, char **en)
 	wait_node(&data.pids);
 	return (0);
 }
+
+/*
+External functions
+
+open, close, read, write,
+malloc, free, perror,,
+strerror, access, dup, dup2,
+execve, exit, fork, pipe,
+unlink, wait, waitpid
+*/

@@ -6,20 +6,15 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:00:34 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/21 16:20:07 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/23 11:09:51 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /*
-open, close, read, write,
-malloc, free, perror,
-strerror, access, dup, dup2,
-execve, exit, fork, pipe,
-unlink, wait, waitpid
+run the first commander and set the input on the choose file
 */
-
 void	first(t_pipex *data, int fd_i, int index)
 {
 	pid_t	pid;
@@ -45,6 +40,9 @@ void	first(t_pipex *data, int fd_i, int index)
 	}
 }
 
+/*
+run the rest of the command and switch for the outfile on the last one
+*/
 void	mid(t_pipex *data, int fd_i, int index)
 {
 	pid_t	pid;

@@ -37,6 +37,7 @@ typedef struct s_pipex
 	int		nbr_pipes;
 	t_pids	*pids;
 	int		i;
+	int		cmd;
 
 }			t_pipex;
 

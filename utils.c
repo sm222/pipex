@@ -13,22 +13,21 @@
 #include "pipex.h"
 
 /*
-open, close, read, write,
-malloc, free, perror,,
-strerror, access, dup, dup2,
-execve, exit, fork, pipe,
-unlink, wait, waitpid
+end the program and free the memory, send the error on stderr(2)
 */
-
 void	ft_exit(t_pipex *data, int err, char *msg)
 {
 	ft_double_sfree((void **)data->path);
 	ft_close_fds(data->pipes, 1, data->nbr_pipes);
 	free_pid(&data->pids);
-	perror(msg);
+	if (msg)
+		perror(msg);
 	exit(err);
 }
 
+/*
+look the environment to find the paths of the system
+*/
 char	**ft_make_path(t_pipex *data)
 {
 	size_t	i;
@@ -49,6 +48,9 @@ char	**ft_make_path(t_pipex *data)
 	return (new);
 }
 
+/*
+use the path and the name of the command and try to find it location
+*/
 char	*ft_find_cmd(char *cmd, char **path)
 {
 	size_t	i;
@@ -76,6 +78,10 @@ char	*ft_find_cmd(char *cmd, char **path)
 	return (ft_combine("can,t find %s", cmd));
 }
 
+/*
+take the address of a double pointer int and open the amount of (int size).
+return -1 if malloc or pipe fail or the number of pipe if success
+*/
 int	make_pipes(int size, int ***pipes)
 {
 	int	i;

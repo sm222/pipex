@@ -6,12 +6,16 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 09:38:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/21 16:07:25 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/23 11:13:19 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*
+take the cmd, path and structure and try to run the bash command
+if it fail, it free all the data inside
+*/
 void	run_cmd(char *cmd, char **path, t_pipex *data)
 {
 	char	**argv;
@@ -22,6 +26,7 @@ void	run_cmd(char *cmd, char **path, t_pipex *data)
 	argv = NULL;
 	list = NULL;
 	ft_close_fds(data->pipes, 1, data->nbr_pipes);
+	data->pipes = NULL;
 	list = ft_split("*''* *\"\"*	", '*');
 	if (list)
 	{
@@ -37,5 +42,5 @@ void	run_cmd(char *cmd, char **path, t_pipex *data)
 	ft_safe_free(run);
 	ft_double_sfree((void **)argv);
 	ft_double_sfree((void **)list);
-	exit(1);
+	ft_exit(data, errno, NULL);
 }

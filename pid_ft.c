@@ -6,12 +6,15 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:40:23 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/21 16:29:29 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/23 11:02:24 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*
+look at the size of the linked list
+*/
 size_t	node_len(t_pids *head)
 {
 	size_t	i;
@@ -28,6 +31,9 @@ size_t	node_len(t_pids *head)
 	return (i);
 }
 
+/*
+create one node of t_pid
+*/
 t_pids	*make_node(pid_t pid)
 {
 	t_pids	*tmp;
@@ -40,6 +46,9 @@ t_pids	*make_node(pid_t pid)
 	return (tmp);
 }
 
+/*
+free all the node from the linked list
+*/
 void	free_pid(t_pids	**pids)
 {
 	t_pids	*next_node;
@@ -55,6 +64,10 @@ void	free_pid(t_pids	**pids)
 	(*pids) = NULL;
 }
 
+/*
+take the address of the linked list and add a node at the end
+if it fails return 0 else return 1
+*/
 int	make_pid_node(t_pids **head, pid_t pid)
 {
 	t_pids	*tmp;
@@ -83,6 +96,10 @@ int	make_pid_node(t_pids **head, pid_t pid)
 	return (1);
 }
 
+/*
+loop on all the linked list and wait on the pid.
+after it free it and go to the next one
+*/
 void	wait_node(t_pids **head)
 {
 	t_pids	*tmp;
