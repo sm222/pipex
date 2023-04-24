@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/23 11:24:23 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:26:19 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ void	pipex_bonus(t_pipex *data)
 	while (data->cmd < data->argc - 1)
 		mid(data, data->i++, data->cmd++);
 	ft_close_fds(data->pipes, 1, data->nbr_pipes);
+	data->pipes = NULL;
 	close(data->input);
 	close(data->output);
+	ft_double_sfree((void **)data->path);
 	if (data->here_doc)
 		if (unlink("/tmp/here_doc") == -1)
 			perror("pipex_bonus");

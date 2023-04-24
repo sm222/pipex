@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 09:33:16 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/23 11:20:36 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:25:47 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	pipex(t_pipex *data)
 	while (data->cmd < data->argc - 1)
 		mid(data, data->i++, data->cmd++);
 	ft_close_fds(data->pipes, 1, data->nbr_pipes);
+	ft_double_sfree((void **)data->path);
 	close(data->input);
 	close(data->output);
 }
