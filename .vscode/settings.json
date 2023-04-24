@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"*.c": "c",
-		"bitset": "c",
-		"libft.h": "c",
-		"unistd.h": "c",
-		"pipex.h": "c"
-	}
-}
