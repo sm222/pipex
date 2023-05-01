@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:12:06 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/23 11:06:59 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:05:11 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ void	loop_in(t_pipex *data)
 		tmp = get_next_line(0);
 		if (ft_strncmp(tmp, data->argv[2], ft_strlen(data->argv[2])) == 0)
 		{
-			ft_safe_free(tmp);
-			break ;
+			if (ft_strncmp(tmp + ft_strlen(data->argv[2]), "\n", 2) == 0)
+			{
+				ft_safe_free(tmp);
+				break ;
+			}
 		}
 		else if (!tmp)
 			ft_exit(data, errno, "get_next_line");
