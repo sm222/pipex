@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:12:06 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/01 15:05:11 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:22:13 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	loop_in(t_pipex *data)
 	{
 		ft_putstr_fd("here_doc > ", 1);
 		tmp = get_next_line(0);
+		if (!tmp)
+			break ;
 		if (ft_strncmp(tmp, data->argv[2], ft_strlen(data->argv[2])) == 0)
 		{
 			if (ft_strncmp(tmp + ft_strlen(data->argv[2]), "\n", 2) == 0)
@@ -31,8 +33,6 @@ void	loop_in(t_pipex *data)
 				break ;
 			}
 		}
-		else if (!tmp)
-			ft_exit(data, errno, "get_next_line");
 		ft_putstr_fd(tmp, data->input);
 		ft_safe_free(tmp);
 	}
@@ -40,7 +40,7 @@ void	loop_in(t_pipex *data)
 
 /*
 create a file name "here_doc"
-and safe the user input inside
+and save the user input inside
 */
 void	here_doc(t_pipex *data)
 {

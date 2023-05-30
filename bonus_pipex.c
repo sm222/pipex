@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/24 12:26:19 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:11:37 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	pipex_bonus(t_pipex *data)
 
 /*
 call the 4 main fontion
-// allso look if the user want to use here_doc
+// also look if the user want to use here_doc
 
 set_data, put the rigth value in the variable
 
