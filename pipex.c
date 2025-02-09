@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
+/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 09:33:16 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/24 12:25:47 by anboisve         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:35:28 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ void	pipex(t_pipex *data)
 }
 
 /*
-call the 4 main fontion
+call the 4 main function
 
-set_data, put the rigth value in the variable
+set_data, put the right value in the variable
 
-make_pipes, open the rigth ammont of pipe
+make_pipes, open the right amount of pipe
 
-pipex, the one runing the commands and redirecting the data
+pipex, the one running the commands and redirecting the data
 
-wait_node, making sure all commande finish runing before ending the programe
+wait_node, making sure all commande finish running before ending the program
 
 */
 int	main(int ac, char **av, char **en)

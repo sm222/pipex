@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
+/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:10:03 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/16 17:11:37 by anboisve         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:31:04 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 set the variable to the right value.
 if the here_doc is user, it will change the flag to not clean the outfile
-and call the fontion here_doc
+and call the function here_doc
 */
 static void	set_data(t_pipex *data, int ac, char **av, char **en)
 {
@@ -43,7 +43,7 @@ static void	set_data(t_pipex *data, int ac, char **av, char **en)
 }
 
 /*
-run all the commende and remove the here_doc file at the end
+run all the commande and remove the here_doc file at the end
 */
 void	pipex_bonus(t_pipex *data)
 {
@@ -65,17 +65,15 @@ void	pipex_bonus(t_pipex *data)
 }
 
 /*
-call the 4 main fontion
-// also look if the user want to use here_doc
+call the 4 main function
 
-set_data, put the rigth value in the variable
+set_data, put the right value in the variable
 
-make_pipes, open the rigth ammont of pipe
+make_pipes, open the right amount of pipe
 
-pipex, the one runing the commands and redirecting the data
+pipex, the one running the commands and redirecting the data
 
-wait_node, making sure all commande finish runing before ending the programe
-
+wait_node, making sure all commande finish running before ending the program
 */
 int	main(int ac, char **av, char **en)
 {
